@@ -36,7 +36,8 @@ const Header = (props) => {
               <NavLink
                 onClick={() => setActivePage(menuItem.title)}
                 to={menuItem.path}
-                className={`navigation__link ${menuItem.title === activePage ? `navigation__link--active` : ``}`}>
+                className={`navigation__link ${menuItem.title === activePage ? `navigation__link--active` : ``}`}
+              >
                 {menuItem.title}
               </NavLink>
             </li>
@@ -55,6 +56,7 @@ const Header = (props) => {
         <NavLink to='/login-page' className={`login__link`}>
           <div className={`login__wrapper`}>
             <LoginIcon
+              className={`header__icon`}
               sx={{
               fontSize: 40,
               color: `#4CA4AA`,
