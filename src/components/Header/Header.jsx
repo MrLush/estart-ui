@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { useState }from 'react';
 import { NavLink } from 'react-router-dom';
+import { connect } from 'react-redux';
+import LoginIcon from '@mui/icons-material/Login';
+import FaceIcon from '@mui/icons-material/Face';
 
-const Header = () => {
+const Header = (props) => {
+  const {authorizationStatus, authInfo} = props;
   const SiteMenuSettings = {
     PROJECTS: {
       title: `Projects`,
@@ -20,25 +24,54 @@ const Header = () => {
       path: `/projects`,
     },
   };
+  const [activePage, setActivePage] = useState(SiteMenuSettings.ABOUT_US.title);
+
   return (
     <header className="header">
       <NavLink to='/about-us'><img className="header__logo" src="./img/logo.svg" width="120" height="120" alt="Logotype Estart"/></NavLink>
-      <nav className="header__navigation navigation">
+      <nav className="header__navigation">
         <ul className="header__navigation-list">
           {Object.values(SiteMenuSettings).map((menuItem) => (
             <li className="navigation__item" key={menuItem.title}>
-              <NavLink to={menuItem.path}
-                className={`navigation__link ${menuItem.title === SiteMenuSettings.ABOUT_US.title ? `navigation__link--active` : ``}`}>
+              <NavLink
+                onClick={() => setActivePage(menuItem.title)}
+                to={menuItem.path}
+                className={`navigation__link ${menuItem.title === activePage ? `navigation__link--active` : ``}`}>
                 {menuItem.title}
               </NavLink>
             </li>
           ))}
         </ul>
       </nav>
+      {authorizationStatus &&
+        <div className={`header__user-icon`}>
+          <FaceIcon
+            sx={{
+              fontSize: 40,
+              color: `#4CA4AA`,
+            }}
+          />
+        </div> ||
+        <NavLink to='/login-page' className={`login__link`}>
+          <div className={`login__wrapper`}>
+            <LoginIcon
+              sx={{
+              fontSize: 40,
+              color: `#4CA4AA`,
+            }}
+            />
+            <span className={`login__text`}>Log In</span>
+          </div>
+        </NavLink>
+      }
     </header>
   );
 }
 
-// логин
+const mapStateToProps = (state) => ({
+  authorizationStatus: state.authorizationStatus,
+  authInfo: state.authInfo
+});
 
-export default Header;
+export { Header };
+export default connect(mapStateToProps)(Header);
