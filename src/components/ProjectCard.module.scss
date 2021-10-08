@@ -1,0 +1,42 @@
+.card {
+  perspective: 150rem;
+  position: relative;
+  width: 200px;
+  height: 300px;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &__side {
+    width: 200px;
+    height: 300px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    box-shadow: 0 1.5rem 4rem rgba(0,0,0,0.15%);
+    backface-visibility: hidden;
+    transition: all .8s ease;
+    overflow: hidden;
+    border-radius: 5px;
+
+    &__front {
+      background-color: blueviolet;
+      position: relative;
+    }
+
+    &__back {
+      background-color: navajowhite;
+      transform: rotateY(180deg);
+    }
+  }
+
+  &:hover &__side__front {
+    transform: rotateY(-180deg);
+  }
+  
+  &:hover &__side__back {
+    transform: rotateY(0);
+  }
+}
+
