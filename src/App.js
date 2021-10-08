@@ -9,7 +9,7 @@ import Projects from './pages/Projects';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Main from './components/Main';
-import './App.css';
+import './scss/app.scss';
 
 
 function App() {
