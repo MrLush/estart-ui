@@ -1,0 +1,36 @@
+.header {
+  padding: 30px 0;
+  display: flex;
+  justify-content: space-between;
+
+  font-size: 20px;
+}
+
+.header__logo {
+  margin-right: 50px;
+}
+
+.header__navigation {
+  flex-grow: 1;
+  outline: 1px solid red;
+  display: flex;
+  align-items: flex-end;
+}
+
+.header__navigation-list {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-grow: 1;
+}
+
+.navigation__link {
+  padding: 10px 15px;
+}
+
+.navigation__link--active {
+  border: 2px solid $teal;
+  border-radius: 50px;
+  // background-color: $teal;
+  // color: $white-base;
+}
