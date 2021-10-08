@@ -1,3 +1,5 @@
+@import '../scss/variables';
+
 .card {
   perspective: 150rem;
   position: relative;
@@ -14,19 +16,20 @@
     position: absolute;
     top: 0;
     left: 0;
-    box-shadow: 0 1.5rem 4rem rgba(0,0,0,0.15%);
+    box-shadow: 0 1.5rem 1.5rem rgba(0,0,0,0.15%);
     backface-visibility: hidden;
     transition: all .8s ease;
     overflow: hidden;
     border-radius: 5px;
 
     &__front {
-      background-color: blueviolet;
+      background-color: #dddddd;
       position: relative;
     }
 
     &__back {
-      background-color: navajowhite;
+      background-color: $teal;
+      color: #fff;
       transform: rotateY(180deg);
     }
   }
@@ -40,3 +43,28 @@
   }
 }
 
+.header {
+  position: absolute;
+  top: 10%;
+  width: 80%;
+  padding-left: 5%;
+  display: block;
+  text-transform: uppercase;
+}
+
+.stage {
+  position: absolute;
+  top: 85%;
+  width: 100%;
+  text-align: center;
+}
+
+.link {
+  text-transform: uppercase;
+  font-size: 20px;
+  position: absolute;
+  top: 60%;
+  display: block;
+  width: 100%;
+  text-align: center;
+}
