@@ -1,5 +1,6 @@
 
 import React, { useRef, useState }from 'react';
+import { NavLink } from 'react-router-dom';
 import Input from '@mui/material/Input';
 import { styled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
@@ -62,7 +63,16 @@ const LoginPage = () => {
     )
   }
 
-  return loginForm();
+  return (
+    <>
+      <header className="header">
+        <NavLink to='/about-us'>
+          <img className="header__logo" src="./img/logo.svg" width="120" height="120" alt="Logotype Estart"/>
+        </NavLink>
+      </header>
+      {loginForm()}
+    </>
+  );
 }
 
 export default LoginPage;

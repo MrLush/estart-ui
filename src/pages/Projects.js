@@ -1,4 +1,5 @@
 import ProjectCard from "../components/ProjectCard";
+import Header from '../components/Header/Header';
 
 import classes from "./Projects.module.scss";
 
@@ -27,15 +28,18 @@ function Projects() {
   ];
 
   return (
-    <ul className={classes.list}>
-      {projectPlaceholders.map((projectObj) => {
-        return (
-          <li key={projectObj.id}>
-            <ProjectCard project={projectObj} />
-          </li>
-        );
-      })}
-    </ul>
+    <>
+      <Header/>
+      <ul className={classes.list}>
+        {projectPlaceholders.map((projectObj) => {
+          return (
+            <li key={projectObj.id}>
+              <ProjectCard project={projectObj} />
+            </li>
+          );
+        })}
+      </ul>
+    </>
   );
 }
 
