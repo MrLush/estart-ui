@@ -1,0 +1,143 @@
+@import '../scss/variables';
+
+.project {
+  display: grid;
+  grid-template-columns: [first] 300px [second]1fr;
+  margin-bottom: 50px;
+
+
+  &__image{
+    margin-bottom: 15px;
+  }
+
+  &__contactsWrapper {
+    width: 250px;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+  }
+
+  &__contactsInnerWrapper {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  &__emailLink,
+  &__phoneLink {
+    margin-bottom: 10px;
+
+    &:hover {
+      color: $teal;
+    }
+
+    &__intro {
+      height: max-content;
+    }
+  }
+
+  &__tagsContainer {
+    display: flex;
+    flex-wrap: wrap;
+    width: 250px;
+    padding: 10px;
+    box-sizing: border-box;
+    height: max-content;
+    box-sizing: border-box;
+    border: 2px solid $grey-light2;
+  }
+
+  &__tag{
+    flex-grow: 1;
+    padding: 5px;
+    margin: 5px;
+    text-align: center;
+    background-color: rgba(221, 221, 221, 0.5);
+  }
+
+  &__header {
+    margin-bottom: 40px;
+    font-size: 28px;
+    color: $teal;
+  }
+
+  &__intro {
+    margin-bottom: 40px;
+    font-size: 16px;
+    line-height: 22px;
+  }
+}
+
+SVG.userIcon {
+  font-size: 50px;
+  color: $teal;
+  margin-right: 20px;
+  align-self: baseline;
+}
+
+SVG.huntedIcon {
+  font-size: 70px;
+  color: $teal;
+  align-self: center;
+}
+
+.header {
+  margin-bottom: 15px;
+  font-size: 22px;
+}
+
+.headerStage {
+  margin-bottom: 30px;
+}
+
+.vacantPlacesList {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 10px 0px;
+  margin-bottom: 20px;
+
+  &__item {
+    width: 20%;
+    margin-right: 30px;
+    margin-bottom: 20px;
+    text-align: center;
+
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.stagesWrapper {
+  border: 2px solid $grey-light2;
+  border-radius: 15px;
+  width: max-content;
+  margin-bottom: 50px;
+}
+
+.stage {
+  display: inline-block;
+  padding: 10px 20px;
+  border-right: 2px solid $grey-light2;
+
+  &:last-child {
+    border: none;
+  }
+}
+
+.columnTwo {
+  position: relative;
+}
+
+.knockButton {
+  left: 44%;
+  position: relative;
+  display: inline-block;
+  box-sizing: border-box;
+  padding: 10px 15px;
+  border: 2px solid $teal;
+  border-radius: 15px;
+
+  &:hover {
+    background-color: $teal;
+    color: $white-base;
+  }
+}
