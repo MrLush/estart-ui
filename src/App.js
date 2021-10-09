@@ -8,6 +8,7 @@ import ProjectPage from './pages/ProjectPage';
 import Projects from './pages/Projects';
 
 import Footer from './components/Footer/Footer';
+import Header from './components/Header/Header';
 import Main from './components/Main';
 import './scss/app.scss';
 
