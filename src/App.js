@@ -3,12 +3,12 @@ import { BrowserRouter } from 'react-router-dom';
 
 import AboutUs from './pages/AboutUs';
 import CreateProject from './pages/CreateProject';
-import LoginPage from './pages/LoginPage';
+import LoginPage from './pages/Login/LoginPage';
 import ProjectPage from './pages/ProjectPage';
 import Projects from './pages/Projects';
 
-import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
+import Header from './components/Header/Header';
 import Main from './components/Main';
 import './scss/app.scss';
 
@@ -17,7 +17,7 @@ function App() {
   return (
     <div>
       <BrowserRouter>
-        <Header />
+        <Header/>
         <Main>
           <Switch>
             <Route path='/about-us'>
