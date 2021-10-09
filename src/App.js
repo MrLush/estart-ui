@@ -16,6 +16,7 @@ function App() {
   return (
     <div>
       <BrowserRouter>
+        <Header/>
         <Main>
           <Switch>
             <Route path='/about-us'>

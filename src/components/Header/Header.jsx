@@ -22,7 +22,7 @@ const Header = (props) => {
     MY_PROJECTS: {
       title: `My projects`,
       path: `/projects`,
-    },
+    }
   };
   const [activePage, setActivePage] = useState(SiteMenuSettings.ABOUT_US.title);
 
@@ -45,7 +45,7 @@ const Header = (props) => {
         </ul>
       </nav>
       {authorizationStatus &&
-        <div className={`header__user-icon`}>
+        <div className={`header__icon`}>
           <FaceIcon
             sx={{
               fontSize: 40,

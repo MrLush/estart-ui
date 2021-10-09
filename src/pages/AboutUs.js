@@ -51,7 +51,6 @@ function AboutUs() {
   ];
   return (
     <>
-      <Header/>
       <p className={classes.text}>Lorem ipsum dolor sit amet, sale oporteat mea ea. Quo at purto nulla inciderint, dissentiunt voluptatibus qui ex, duo insolens neglegentur eu. Ex ius dicit vocent assentior, mel rebum brute ea. Ut eros tincidunt vis, error facilis consequat id eam. Ut duo vitae albucius mandamus.</p>
       <div className={classes.imgContainer}>
           <Link className={classes.btn} to='/create-project'>Create a project</Link>

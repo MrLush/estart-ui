@@ -29,7 +29,6 @@ function Projects() {
 
   return (
     <>
-      <Header/>
       <ul className={classes.list}>
         {projectPlaceholders.map((projectObj) => {
           return (

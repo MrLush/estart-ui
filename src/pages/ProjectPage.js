@@ -6,7 +6,6 @@ function ProjectPage() {
   const params = useParams();
   return (
     <>
-      <Header/>
       PROJECT PAGE FOR PROJECT WITH ID: {params.projectId}
     </>
   );
