@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import Carousel from 'react-material-ui-carousel';
-import ProjectCard from '../components/ProjectCard';
 
 import classes from './AboutUs.module.scss';
 
