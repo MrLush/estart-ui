@@ -2,7 +2,6 @@ import React from 'react';
 import { Form } from 'react-final-form';
 import { Button, ToggleButtonGroup, ToggleButton, TextField, Box, FormGroup, FormControlLabel, Checkbox, FormControl } from '@mui/material';
 import classes from './CreateProject.module.scss';
-import Header from '../components/Header/Header';
 
 function CreateProject() {
 
@@ -112,7 +111,6 @@ function CreateProject() {
 
   return (
     <>
-    <Header/>
     <form onSubmit={handleSubmit} className={classes.form}>
       <div className={classes.imgContainer}>
         <input className={classes.fileInput} type="file" name="picture" id="picture" accept="image/png, image/jpeg" placeholder="add a picture" onChange={uploadImgHandler}/>
