@@ -1,15 +1,21 @@
 @import '../scss/variables';
 
 .text {
-  padding: 10px;
+  padding: 10px 0px;
   margin: 15px 0;
-  background-color: rgba(221, 221, 221, 0.6);
+  font-size: 20px;
+  line-height: 28px;
+}
+
+.textBold {
+  font-weight: 500;
 }
 
 .imgContainerIdea {
   height: 500px;
   width: 100%;
   position: relative;
+  margin-bottom: 15px;
 
   background-image: url(../img/idea.jpeg);
   background-position: center;
@@ -27,7 +33,7 @@
   height: 500px;
   width: 100%;
   position: relative;
-  margin-bottom: 50px;
+  margin-bottom: 15px;
 
   background-image: url(../img/team.jpeg);
   background-position: center;
@@ -38,7 +44,7 @@
 .btn {
   color: #000;
   position: absolute;
-  bottom: 10%;
+  bottom: 20%;
   left: 52%;
   transform: translateX(-50%);
   text-transform: uppercase;
@@ -58,6 +64,8 @@
   text-transform: uppercase;
   margin: 30px 0 20px ;
   text-align: center;
+  margin-top: 55px;
+  // color: $teal;
 }
 
 .carousel {

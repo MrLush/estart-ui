@@ -50,15 +50,33 @@ function AboutUs() {
   ];
   return (
     <>
-      <p className={classes.text}>Lorem ipsum dolor sit amet, sale oporteat mea ea. Quo at purto nulla inciderint, dissentiunt voluptatibus qui ex, duo insolens neglegentur eu. Ex ius dicit vocent assentior, mel rebum brute ea. Ut eros tincidunt vis, error facilis consequat id eam. Ut duo vitae albucius mandamus.</p>
+      <div>
+      <p className={classes.text}>What do the wheel, rocket, and transistor have in common?</p>
+      <p className={classes.text}>
+        Every great project or invention that changed the world started with an Idea.
+        But how many ideas have not gone beyond the mind of their creators?
+        How many great projects have we failed to implement?
+        <span className={classes.textBold}> Estart was created to give every Idea a chance to come true</span>.
+      </p>
+      <p className={classes.text}>
+        But is one idea enough to change the world? Of course not.
+        Behind every brilliant project there is an equally brilliant team that has implemented it.
+        And this is the second problem that the Estart project offers to solve - <span className={classes.textBold}>to bring together an idea and a team ready to bring it to life.</span>
+        Just imagine how our world could change if we provided a fertile ground for both creative commercial ideas and charity ideas aimed at making this world a better place.
+      </p>
+      </div>
       <div className={classes.imgContainerIdea}>
           <Link className={classes.btn} to='/create-project'>Create a project</Link>
       </div>
-      <p className={classes.text}>Vim quem insolens disputationi ei, no vix choro aperiri, ex nostrum voluptua interpretaris sea. Cum illud doming dissentiunt ut, ad sit quot euismod disputationi. Veniam consul vis ne, nam te mazim assueverit. Errem mandamus ea vix.
-        Ut inani minim sed, eu modo putent interpretaris eum, tempor eripuit argumentum in sed. Noster discere quo ut, harum similique reformidans qui in. At veniam lobortis pri, ius nobis putant vituperatoribus an. Qui ad dicat ullamcorper, delicata quaerendum vel at, ei facete deterruisset duo.</p>
+      <p className={classes.text}>
+        If you have a project, or just an idea, and you are looking for a team to implement it, then <span className={classes.textBold}>make your Idea come true with Estart!</span>
+      </p>
       <div className={classes.imgContainerTeam}>
           <Link className={classes.btn} to='/projects'>Find a project</Link>
       </div>
+      <p className={classes.text}>
+        If you are looking for an interesting project, want to gain new experience and improve your skills, then <span className={classes.textBold}>find your ideal project with Estart!</span>
+      </p>
       <h2 className={classes.heading}> Our projects</h2>
       <Carousel className={classes.carousel}>
         {
