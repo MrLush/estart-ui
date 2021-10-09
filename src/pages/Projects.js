@@ -27,6 +27,21 @@ function Projects() {
     },
   ];
 
+  let projects;
+
+  const getProjects = async () => {
+    try {
+      projects = await fetch('https://es-be-dev.herokuapp.com/projects');
+      const jsonRes = await projects.json();
+      console.log(jsonRes);
+    } catch(err) {
+      console.log(err);
+    }
+
+  }
+
+  getProjects();
+
   return (
     <>
       <ul className={classes.list}>
