@@ -27,15 +27,18 @@ function Projects() {
   ];
 
   return (
-    <ul className={classes.list}>
-      {projectPlaceholders.map((projectObj) => {
-        return (
-          <li key={projectObj.id}>
-            <ProjectCard project={projectObj} />
-          </li>
-        );
-      })}
-    </ul>
+    <>
+      {/* <Header/> */}
+      <ul className={classes.list}>
+        {projectPlaceholders.map((projectObj) => {
+          return (
+            <li key={projectObj.id}>
+              <ProjectCard project={projectObj} />
+            </li>
+          );
+        })}
+      </ul>
+    </>
   );
 }
 

@@ -22,7 +22,7 @@ const Header = (props) => {
     MY_PROJECTS: {
       title: `My projects`,
       path: `/projects`,
-    },
+    }
   };
   const [activePage, setActivePage] = useState(SiteMenuSettings.ABOUT_US.title);
 
