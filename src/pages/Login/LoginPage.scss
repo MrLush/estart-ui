@@ -1,0 +1,35 @@
+.page__login-container {
+  margin-bottom: 40px;
+}
+
+.login {
+  margin: 0 auto;
+  width: 400px;
+  padding: 70px 0;
+
+  p {
+    margin-bottom: 7px;
+  }
+
+  a {
+    text-decoration: underline;
+  }
+
+  a:hover {
+    color: $teal;
+  }
+}
+
+.login_from {
+  margin-bottom: 30px;
+}
+
+.login__title {
+  margin-bottom: 35px;
+  color: $teal;
+}
+
+.login__input-wrapper {
+  margin-bottom: 30px;
+  width: 300px;
+}
