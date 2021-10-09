@@ -1,4 +1,5 @@
 import ProjectCard from "../components/ProjectCard";
+import Header from '../components/Header/Header';
 
 import classes from "./Projects.module.scss";
 
@@ -28,7 +29,6 @@ function Projects() {
 
   return (
     <>
-      {/* <Header/> */}
       <ul className={classes.list}>
         {projectPlaceholders.map((projectObj) => {
           return (

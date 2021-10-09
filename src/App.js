@@ -7,7 +7,6 @@ import LoginPage from './pages/Login/LoginPage';
 import ProjectPage from './pages/ProjectPage';
 import Projects from './pages/Projects';
 
-import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 import Main from './components/Main';
 import './scss/app.scss';
