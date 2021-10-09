@@ -45,7 +45,7 @@ const Header = (props) => {
         </ul>
       </nav>
       {authorizationStatus &&
-        <div className={`header__user-icon`}>
+        <div className={`header__icon`}>
           <FaceIcon
             sx={{
               fontSize: 40,
