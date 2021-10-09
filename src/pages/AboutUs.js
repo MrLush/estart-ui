@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 import Carousel from 'react-material-ui-carousel';
 import ProjectCard from '../components/ProjectCard';
-import Header from '../components/Header/Header';
 
 import classes from './AboutUs.module.scss';
 
@@ -52,12 +51,12 @@ function AboutUs() {
   return (
     <>
       <p className={classes.text}>Lorem ipsum dolor sit amet, sale oporteat mea ea. Quo at purto nulla inciderint, dissentiunt voluptatibus qui ex, duo insolens neglegentur eu. Ex ius dicit vocent assentior, mel rebum brute ea. Ut eros tincidunt vis, error facilis consequat id eam. Ut duo vitae albucius mandamus.</p>
-      <div className={classes.imgContainer}>
+      <div className={classes.imgContainerIdea}>
           <Link className={classes.btn} to='/create-project'>Create a project</Link>
       </div>
       <p className={classes.text}>Vim quem insolens disputationi ei, no vix choro aperiri, ex nostrum voluptua interpretaris sea. Cum illud doming dissentiunt ut, ad sit quot euismod disputationi. Veniam consul vis ne, nam te mazim assueverit. Errem mandamus ea vix.
         Ut inani minim sed, eu modo putent interpretaris eum, tempor eripuit argumentum in sed. Noster discere quo ut, harum similique reformidans qui in. At veniam lobortis pri, ius nobis putant vituperatoribus an. Qui ad dicat ullamcorper, delicata quaerendum vel at, ei facete deterruisset duo.</p>
-      <div className={classes.imgContainer}>
+      <div className={classes.imgContainerTeam}>
           <Link className={classes.btn} to='/projects'>Find a project</Link>
       </div>
       <h2 className={classes.heading}> Our projects</h2>
