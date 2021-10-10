@@ -4,8 +4,7 @@ import { connect } from 'react-redux';
 import LoginIcon from '@mui/icons-material/Login';
 import FaceIcon from '@mui/icons-material/Face';
 
-const Header = (props) => {
-  const {authorizationStatus, authInfo} = props;
+const Header = () => {
   const SiteMenuSettings = {
     PROJECTS: {
       title: `Projects`,
@@ -44,7 +43,19 @@ const Header = (props) => {
           ))}
         </ul>
       </nav>
-      {authorizationStatus &&
+      <NavLink to='/login-page' className={`login__link`}>
+          <div className={`login__wrapper`}>
+            <LoginIcon
+              className={`header__icon`}
+              sx={{
+              fontSize: 40,
+              color: `#4CA4AA`,
+            }}
+            />
+            <span className={`login__text`}>Log In</span>
+          </div>
+        </NavLink>
+      {/* {authorizationStatus &&
         <div className={`header__icon`}>
           <FaceIcon
             sx={{
@@ -65,7 +76,7 @@ const Header = (props) => {
             <span className={`login__text`}>Log In</span>
           </div>
         </NavLink>
-      }
+      } */}
     </header>
   );
 }

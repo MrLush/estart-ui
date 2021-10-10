@@ -3,11 +3,11 @@ import style from './FilterModal.module.scss'
 import { VACANT_PLACES, TAGS} from '../../utils/const';
 import { Button, ToggleButtonGroup, ToggleButton, TextField, Box, FormGroup, FormControlLabel, Checkbox, FormControl } from '@mui/material';
 
-const FilterModal = () => {
+const FilterModal = ({setProjects, setfilterModalVisible}) => {
   const [filterForm, setFilterForm] = useState({
     vacant_places: [],
     tags: [],
-    stage: '',
+    stage: [],
   })
   const [vacantPositions, setVacantPositions] = useState([]);
   const [selectedTags, setSelectedTags] = useState([]);
@@ -38,7 +38,7 @@ const FilterModal = () => {
   };
 
   const handleOnToggleStage = (evt) => {
-    const {value} = evt.target
+    const {value} = evt.target;
     setStage(value);
   };
 
@@ -53,7 +53,8 @@ const FilterModal = () => {
       )
       .then( (response) => response.json() )
       .then(( response ) => {
-        console.log(response);
+        console.log(response.content);
+        setProjects(response.content)
       })
     } catch(err) {
       console.log(err);
@@ -66,11 +67,10 @@ const FilterModal = () => {
     let copyFilterForm = filterForm;
     copyFilterForm.vacant_places = vacantPositions;
     copyFilterForm.tags = selectedTags;
-    copyFilterForm.stage = stage;
+    copyFilterForm.stage = [stage];
     setFilterForm({...copyFilterForm});
-
     fetchFiltredProjects(filterForm);
-
+    setfilterModalVisible(false);
   };
 
   return (

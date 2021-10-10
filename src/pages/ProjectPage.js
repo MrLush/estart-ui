@@ -3,6 +3,8 @@ import { useParams } from 'react-router-dom';
 import FaceIcon from '@mui/icons-material/Face';
 import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
 import style from './ProjectPage.module.scss'
+import { MAIL_MOCK } from '../utils/const';
+import classNames from 'classnames';
 
 function ProjectPage() {
   const { projectId } = useParams();
@@ -30,13 +32,13 @@ function ProjectPage() {
     return 'loading...';
   }
 
-  const {name, about_project, members_on_board, tags, image } = project;
+  const {name, about_project, members_on_board, tags, image, stage } = project;
 
   const randomImg = Math.floor(Math.random() * 10);
   const imgSrc = image && image.length ? image : `https://raw.githubusercontent.com/MrLush/estart-ui/main/src/img/${randomImg}.jpg`;
 
   const Stages = {
-    JUST_IN_IDEA: {
+    IDEA: {
       title: 'Just in idea'
     },
     IN_PROGRESS: {
@@ -58,7 +60,7 @@ function ProjectPage() {
           <div className={style.project__contactsWrapper}>
           <FaceIcon className={style.userIcon}/>
           <div className={style.project__contactsInnerWrapper}>
-            <a className={style.project__emailLink} href='mailto:test@mail.ru'>test@mail.ru</a>
+            <a className={style.project__emailLink} href={'mailto:test@mail.ru?subject=Apply to the project&body='+`${MAIL_MOCK}`}>test@mail.ru</a>
             <a className={style.project__phoneLink} href='mailto:test@mail.ru'>+79991113423</a>
           </div>
         </div>
@@ -92,15 +94,15 @@ function ProjectPage() {
         <div className={style.stagesWrapper}>
           <ul>
             {
-            Object.values(Stages).map((stage) => (
-              <li className={style.stage}>
-                <span key={stage.title}>{stage.title}</span>
+            Object.values(Stages).map((stageItem) => (
+              <li className={classNames(style.stage, { [style.stageActive]: stageItem === Stages[stage] })}>
+                <span key={stageItem.title}>{stageItem.title}</span>
               </li>
             ))
           }
           </ul>
         </div>
-        <a href='mailto:test@mail.ru' className={style.knockButton}>Knock on the project</a>
+        <a href={'mailto:test@mail.ru?subject=Apply to the project&body='+`${MAIL_MOCK}`} className={style.knockButton}>Knock on the project</a>
       </section>
       </article>
     </>
