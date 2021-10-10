@@ -8,66 +8,17 @@ function AboutUs() {
 
   const [projects, setProjects] = useState([]);
 
-  const randomImg = Math.floor(Math.random() * 10);
-
   const getProjects = async () => {
     try {
       await fetch('https://es-be-dev.herokuapp.com/projects')
       .then((response) => response.json())
-      .then((response) => setProjects(response.slice(0, 5)));
+      .then((response) => setProjects(response.content.slice(0, 5)));
     } catch(err) {
       console.log(err);
     }
   }
 
   getProjects();
-
-  const projectPlaceholders = [
-    {
-      id: "9cf2c046-279a-11ec-9621-0242ac130002",
-      name: "project name",
-      owner_id: "9cf2c046-279a-11ec-9621-0242ac130002",
-      stage: "IDEA",
-      stack: "lorem ipsum",
-      about_project: "lorem ipsum",
-      tags: ["tag1", "tag2", "tag3"],
-      vacant_places: ["Frontend Dev", "Backend Dev"],
-      image: 'https://raw.githubusercontent.com/MrLush/estart-ui/main/src/img/1.jpg',
-    },
-    {
-      id: "another id",
-      name: "another project name",
-      owner_id: "another owner id",
-      stage: "CLOSED",
-      stack: "lorem ipsum",
-      about_project: "lorem ipsum",
-      tags: ["tag1", "tag2", "tag3"],
-      vacant_places: ["Frontend Dev", "Backend Dev"],
-      image: 'https://raw.githubusercontent.com/MrLush/estart-ui/main/src/img/2.jpg',
-    },
-        {
-      id: "9cf2c046-279a-11ec-9621-0242ac130002",
-      name: "project 3",
-      owner_id: "9cf2c046-279a-11ec-9621-0242ac130002",
-      stage: "IDEA",
-      stack: "lorem ipsum",
-      about_project: "lorem ipsum",
-      tags: ["tag1", "tag2", "tag3"],
-      vacant_places: ["Frontend Dev", "Backend Dev"],
-      image: 'https://raw.githubusercontent.com/MrLush/estart-ui/main/src/img/3.jpg',
-    },
-    {
-      id: "another id",
-      name: "another 4",
-      owner_id: "another owner id",
-      stage: "CLOSED",
-      stack: "lorem ipsum",
-      about_project: "lorem ipsum",
-      tags: ["tag1", "tag2", "tag3"],
-      vacant_places: ["Frontend Dev", "Backend Dev"],
-      image: 'https://raw.githubusercontent.com/MrLush/estart-ui/main/src/img/4.jpg',
-    },
-  ];
 
   return (
     <>
@@ -101,11 +52,11 @@ function AboutUs() {
       <h2 className={classes.heading}> Our projects</h2>
       <Carousel className={classes.carousel}>
         {
-          projectPlaceholders.map((project, i) => {
+          projects.map((project, i) => {
             return (
               <Link to={`/current-project/${project.id}`}>
               <div className={classes.card} key={i} project={project} >
-                <img src={project.image ? project.image : `https://raw.githubusercontent.com/MrLush/estart-ui/main/src/img/${randomImg}.jpg`} alt="project"/>
+                <img src={project.image ? project.image : 'https://raw.githubusercontent.com/MrLush/estart-ui/main/src/img/0.jpg'} alt="project"/>
                 <p className={classes.card__heading}>{project.name}</p>
                 <p className={classes.card__stage}>{project.stage}</p>
               </div>
