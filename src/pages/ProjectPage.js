@@ -1,13 +1,13 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import FaceIcon from '@mui/icons-material/Face';
 import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
 import style from './ProjectPage.module.scss'
 
 function ProjectPage() {
+  const [project, setProject] = useState({});
   const {name, about_project, members_on_board, tags} = project;
   const { projectId } = useParams();
-
   const Stages = {
     JUST_IN_IDEA: {
       title: 'Just in idea'
@@ -22,6 +22,24 @@ function ProjectPage() {
       title: 'Closed'
     },
   }
+
+  const fetchProject = async (projectId) => {
+  try {
+    fetch('https://es-be-dev.herokuapp.com/projects/' + `${projectId}`,
+      { method: 'GET',
+        headers: { 'Content-Type': 'application/json' },
+      })
+    .then( response => response.json() )
+    .then(({ response }) => (setProject(response)));
+  } catch(err) {
+    console.log(err)
+    alert('Something went wrong');
+  }
+}
+
+  useEffect(() => {
+    fetchProject(projectId);
+  }, [projectId])
 
   return (
     <>
