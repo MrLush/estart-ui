@@ -2,19 +2,13 @@ import React from 'react';
 import { Form } from 'react-final-form';
 import { Button, ToggleButtonGroup, ToggleButton, TextField, Box, FormGroup, FormControlLabel, Checkbox, FormControl } from '@mui/material';
 import classes from './CreateProject.module.scss';
+import { VACANT_PLACES, TAGS } from '../utils/const';
 
 function CreateProject() {
 
   const [toggleBtnGroupValue, setToggleBtnGroupValue] = React.useState('just_an_idea');
 
-  const tags = ['Stack UNDEFINED', 'Lifescience', 'E-commerce', 'Project for Epam', 'Charity project', 'Python', 'C', 'C++',
-  'Java', 'C#', 'JavaScript', 'SQL', 'PHP', 'Go', 'R', 'Swift', 'Spring', 'Angular','Node','React','Vue','Machine Learning',
-  'MySQL','Postgress','MongoDB','Microsoft Server SQL','Oracle','HTML','CSS','TypeScript'];
-
-  const vacantPlaces = ['Frontend Developer', 'Backend Developer', 'UI/UX Designer', 
-  'Business Analyst', 'Application Support Engineer', 'Project Manager', 'Software Testing Engineer', 'Soft Automation Engineer', 'DevOps'];
-  
-  const vacantPositionsState = vacantPlaces.reduce((acc, item) => {
+  const vacantPositionsState = VACANT_PLACES.reduce((acc, item) => {
     return {...acc, [item]: false};
   }, {});
 
@@ -53,7 +47,7 @@ function CreateProject() {
   };
 
   const uploadImgHandler = (event) => {
-    const file = event.target.files[0]; 
+    const file = event.target.files[0];
     let nextSibling = event.target.nextElementSibling;
     const reader = new FileReader();
     reader.addEventListener("load", function(e) {
@@ -84,9 +78,9 @@ function CreateProject() {
 
   const sendPostRequest = async (body) => {
     try {
-      fetch('https://es-be-dev.herokuapp.com/projects', 
+      fetch('https://es-be-dev.herokuapp.com/projects',
         { method: 'POST',
-          headers: { 'Content-Type': 'application/json' }, 
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(body)
         });
       alert('Project created!');
@@ -130,7 +124,7 @@ function CreateProject() {
       </div>
       <div className={classes.tags}>
         <p className={classes.label}>Tags</p>
-        {tags.map(tag => <ToggleButton classes={{root: classes.tag}} selected={selectedTags.includes(tag)} value={tag} onChange={toggleTagHandler} key={tag}>{tag}</ToggleButton>)}
+        {TAGS.map(tag => <ToggleButton classes={{root: classes.tag}} selected={selectedTags.includes(tag)} value={tag} onChange={toggleTagHandler} key={tag}>{tag}</ToggleButton>)}
       </div>
       <div>
         <p className={classes.label}>Add your contacts</p>
@@ -156,7 +150,7 @@ function CreateProject() {
       <div>
         <p className={classes.label}>Vacant places:</p>
          <FormControl required error={error}>
-          <FormGroup> {vacantPlaces.map((position, index) => {
+          <FormGroup> {VACANT_PLACES.map((position, index) => {
             return <FormControlLabel key={index} control={<Checkbox onChange={handleVacantPlacesChange} name={position} key={index}/>} label={position} />
           })}
           </FormGroup>

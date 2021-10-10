@@ -1,3 +1,5 @@
+@import '../scss/variables';
+
 .list {
   display: grid;
   grid-template-columns: repeat(auto-fit, 200px);
@@ -6,4 +8,22 @@
   padding: 0 20px;
   margin: 20px auto;
   list-style: none;
+}
+
+.btn {
+  border: none;
+  background-color: transparent;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: $teal;
+  padding: 10px 20px;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.wrapper {
+  position: relative;
 }
