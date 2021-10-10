@@ -11,7 +11,7 @@ const Header = () => {
       path: `/projects`,
     },
     ABOUT_US: {
-      title: `Abouts us`,
+      title: `About us`,
       path: `/about-us`,
     },
     CREATE_A_PROJECT: {
@@ -20,7 +20,7 @@ const Header = () => {
     },
     MY_PROJECTS: {
       title: `My projects`,
-      path: `/my-projects `,
+      path: `/my-projects`,
     }
   };
   const [activePage, setActivePage] = useState(SiteMenuSettings.ABOUT_US.title);
