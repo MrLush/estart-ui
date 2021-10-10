@@ -8,7 +8,7 @@ function ProjectCard(props) {
   return (
     <div className={styles.card}>
       <div className={`${styles.card__side} ${styles.card__side__front}`}>
-        <img src={`https://github.com/MrLush/estart-ui/blob/main/src/img/${randomImg}.jpg`} alt="project" className={styles.img}/>
+        <img src={`https://raw.githubusercontent.com/MrLush/estart-ui/main/src/img/${randomImg}.jpg`} alt="project" className={styles.img}/>
         <h2 className={styles.header}>{props.project.name}</h2>
         <p className={styles.stage}>{props.project.stage}</p>
       </div>
