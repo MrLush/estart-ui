@@ -6,10 +6,15 @@ function MyProjects() {
   const [projects, setProjects] = useState([]);
 
   const getProjects = async () => {
+    const token = localStorage.getItem("accessToken");
     try {
-      await fetch('https://es-be-dev.herokuapp.com/projects')
+      await fetch('https://es-be-dev.herokuapp.com/projects/owner', {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      })
       .then((response) => response.json())
-      .then((response) => setProjects(response.content.slice(0, 3))); // for demo purposes
+      .then((response) => setProjects(response));
     } catch(err) {
       console.log(err);
     }
