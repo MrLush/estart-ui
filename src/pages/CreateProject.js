@@ -147,15 +147,15 @@ function CreateProject() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const reqBody = {
-      owner_id: 'c9de5e88-294a-11ec-9621-0242ac130002',
+      // owner_id: 'c9de5e88-294a-11ec-9621-0242ac130002',
       name: nameInput.current.value,
       about_project: aboutProjectInput.current.getContent(),
       stack: stackInput.current.value,
       email: emailInput.current.value,
       phone: phoneInput.current.value,
       image: img,
-      stage: stage,
-      tags: selectedTags.length ? selectedTags : ["Stack UNDEFINED"],
+      stage: stage ? stage : 'IDEA',
+      tags: selectedTags.length ? selectedTags : ['Stack UNDEFINED'],
       language: language,
       vacant_places: Object.entries(vacantPositions).filter(([_, value]) => value).map(([key]) => key),
       members_on_board: []
@@ -165,10 +165,14 @@ function CreateProject() {
   };
 
   const sendPostRequest = async (body) => {
+    const token = localStorage.getItem("accessToken");
     try {
       fetch('https://es-be-dev.herokuapp.com/projects',
         { method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
           body: JSON.stringify(body)
         });
       alert('Project created!');
@@ -195,17 +199,17 @@ function CreateProject() {
     <>
     <form onSubmit={handleSubmit} className={styles.form}>
       <div className={styles.imgContainer}>
-        <input 
-          className={styles.fileInput} 
-          type="file" 
-          name="picture" 
-          id="picture" 
-          accept="image/png, image/jpeg" 
+        <input
+          className={styles.fileInput}
+          type="file"
+          name="picture"
+          id="picture"
+          accept="image/png, image/jpeg"
           onChange={uploadImgHandler}
         />
-        <img 
-          alt="project" 
-          className={styles.img} 
+        <img
+          alt="project"
+          className={styles.img}
           src='https://as2.ftcdn.net/v2/jpg/04/39/69/17/500_F_439691722_E5m6ba3RFSzODvlkZSpNaixEVBrv4qT8.jpg'
         />
       </div>
@@ -213,11 +217,11 @@ function CreateProject() {
         <h2 htmlFor="name" className={styles.label}>
           Your project name
         </h2>
-        <TextField 
-          className={styles.textarea} 
-          name="name" 
-          id="name" 
-          required 
+        <TextField
+          className={styles.textarea}
+          name="name"
+          id="name"
+          required
           inputRef={nameInput}
         />
       </div>
@@ -298,21 +302,21 @@ function CreateProject() {
       </div>
       <div>
         <label htmlFor="stack" className={styles.label}>Stack</label>
-        <TextField 
+        <TextField
           className={styles.textarea}
           inputRef={stackInput}
-          multiline rows={6} 
-          type="textarea" 
-          placeholder="any details about your stack" 
-          name="stack" 
-          id="stack" 
+          multiline rows={6}
+          type="textarea"
+          placeholder="any details about your stack"
+          name="stack"
+          id="stack"
           required
         />
       </div>
       <div className={styles.tags}>
         <p className={styles.label}>Tags</p>
         {TAGS.map(tag => (
-          <ToggleButton 
+          <ToggleButton
             classes={{root: styles.tag}}
             selected={selectedTags.includes(tag)}
             value={tag}
@@ -325,17 +329,17 @@ function CreateProject() {
       <div>
         <p className={styles.label}>Add your contacts</p>
          <Box sx={boxStyles}>
-            <TextField 
+            <TextField
               id="email"
               label="Email"
               className={styles.contacts}
               required inputRef={emailInput}/>
           </Box>
           <Box sx={boxStyles}>
-            <TextField 
-              id="phone" 
-              label="Phone" 
-              className={styles.contacts} 
+            <TextField
+              id="phone"
+              label="Phone"
+              className={styles.contacts}
               inputRef={phoneInput}
             />
           </Box>
@@ -344,10 +348,10 @@ function CreateProject() {
         <p className={styles.label}>Vacant places:</p>
          <FormControl>
           <FormGroup> {VACANT_PLACES.map((position, index) => (
-            <FormControlLabel 
-              key={index} 
-              control={<Checkbox onChange={handleVacantPlacesChange} name={position} key={index}/>} 
-              label={position} 
+            <FormControlLabel
+              key={index}
+              control={<Checkbox onChange={handleVacantPlacesChange} name={position} key={index}/>}
+              label={position}
             />))}
           </FormGroup>
         </FormControl>

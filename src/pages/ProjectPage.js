@@ -3,7 +3,6 @@ import { useParams } from 'react-router-dom';
 import FaceIcon from '@mui/icons-material/Face';
 import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
 import style from './ProjectPage.module.scss'
-import { MAIL_MOCK } from '../utils/const';
 import classNames from 'classnames';
 
 function ProjectPage() {
@@ -32,10 +31,7 @@ function ProjectPage() {
     return 'loading...';
   }
 
-  const {name, about_project, members_on_board, tags, image, stage } = project;
-
-  const randomImg = Math.floor(Math.random() * 10);
-  const imgSrc = image && image.length ? image : `https://raw.githubusercontent.com/MrLush/estart-ui/main/src/img/${randomImg}.jpg`;
+  const {name, about_project, vacant_places, tags, image, stage, stack, phone, email, language } = project;
 
   const Stages = {
     IDEA: {
@@ -56,12 +52,12 @@ function ProjectPage() {
     <>
       <article className={style.project}>
       <section>
-        <img className={style.project__image} src={imgSrc} width="250" height="250" alt="project"/>
+        {image && image.length && <img className={style.project__image} src={image} width="250" height="250" alt="project"/> }
           <div className={style.project__contactsWrapper}>
           <FaceIcon className={style.userIcon}/>
           <div className={style.project__contactsInnerWrapper}>
-            <a className={style.project__emailLink} href={'mailto:test@mail.ru?subject=Apply to the project&body='+`${MAIL_MOCK}`}>test@mail.ru</a>
-            <a className={style.project__phoneLink} href='mailto:test@mail.ru'>+79991113423</a>
+            <a className={style.project__emailLink} href={`mailto:${email}?subject=Apply to the project&body=${email}`}>{email}</a>
+            <a className={style.project__phoneLink} href={email}>{phone}</a>
           </div>
         </div>
         <h2 className={style.header}>Required stack</h2>
@@ -79,12 +75,10 @@ function ProjectPage() {
               }}>
         </div>
         <h2 className={style.header}>About stack</h2>
-        <p className={style.project__intro}>
-          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
-        </p>
+        <p className={style.project__intro}>{stack}</p>
         <h2 className={style.header}>Vacant places</h2>
         <ul className={style.vacantPlacesList}>
-          {members_on_board?.map((member) => (
+          {vacant_places?.map((member) => (
             <li className={style.vacantPlacesList__item}>
             <AssignmentIndIcon className={style.huntedIcon}/>
             <p>{member}</p>
@@ -103,7 +97,8 @@ function ProjectPage() {
           }
           </ul>
         </div>
-        <a href={'mailto:test@mail.ru?subject=Apply to the project&body='+`${MAIL_MOCK}`} className={style.knockButton}>Knock on the project</a>
+        <h2>Project language: {language}</h2>
+        <a href={`mailto:${email}?subject=Apply to the project&body=${email}`} className={style.knockButton}>Knock on the project</a>
       </section>
       </article>
     </>
