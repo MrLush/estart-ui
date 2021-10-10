@@ -1,9 +1,26 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Carousel from 'react-material-ui-carousel';
 
 import classes from './AboutUs.module.scss';
 
 function AboutUs() {
+
+  const [projects, setProjects] = useState([]);
+
+  const randomImg = Math.floor(Math.random() * 10);
+
+  const getProjects = async () => {
+    try {
+      await fetch('https://es-be-dev.herokuapp.com/projects')
+      .then((response) => response.json())
+      .then((response) => setProjects(response.slice(0, 5)));
+    } catch(err) {
+      console.log(err);
+    }
+  }
+
+  getProjects();
 
   const projectPlaceholders = [
     {
@@ -15,6 +32,7 @@ function AboutUs() {
       about_project: "lorem ipsum",
       tags: ["tag1", "tag2", "tag3"],
       vacant_places: ["Frontend Dev", "Backend Dev"],
+      image: 'https://raw.githubusercontent.com/MrLush/estart-ui/main/src/img/1.jpg',
     },
     {
       id: "another id",
@@ -25,6 +43,7 @@ function AboutUs() {
       about_project: "lorem ipsum",
       tags: ["tag1", "tag2", "tag3"],
       vacant_places: ["Frontend Dev", "Backend Dev"],
+      image: 'https://raw.githubusercontent.com/MrLush/estart-ui/main/src/img/2.jpg',
     },
         {
       id: "9cf2c046-279a-11ec-9621-0242ac130002",
@@ -35,6 +54,7 @@ function AboutUs() {
       about_project: "lorem ipsum",
       tags: ["tag1", "tag2", "tag3"],
       vacant_places: ["Frontend Dev", "Backend Dev"],
+      image: 'https://raw.githubusercontent.com/MrLush/estart-ui/main/src/img/3.jpg',
     },
     {
       id: "another id",
@@ -45,8 +65,10 @@ function AboutUs() {
       about_project: "lorem ipsum",
       tags: ["tag1", "tag2", "tag3"],
       vacant_places: ["Frontend Dev", "Backend Dev"],
+      image: 'https://raw.githubusercontent.com/MrLush/estart-ui/main/src/img/4.jpg',
     },
   ];
+
   return (
     <>
       <div>
@@ -82,7 +104,8 @@ function AboutUs() {
           projectPlaceholders.map((project, i) => {
             return (
               <Link to={`/current-project/${project.id}`}>
-              <div className={classes.card} key={i} project={project}>
+              <div className={classes.card} key={i} project={project} >
+                <img src={project.image ? project.image : `https://raw.githubusercontent.com/MrLush/estart-ui/main/src/img/${randomImg}.jpg`} alt="project"/>
                 <p className={classes.card__heading}>{project.name}</p>
                 <p className={classes.card__stage}>{project.stage}</p>
               </div>
