@@ -1,22 +1,26 @@
 import React from 'react';
-import { Form } from 'react-final-form';
 import { Button, ToggleButtonGroup, ToggleButton, TextField, Box, FormGroup, FormControlLabel, Checkbox, FormControl } from '@mui/material';
-import classes from './CreateProject.module.scss';
+import styles from './CreateProject.module.scss';
+
+const tags = ['Stack UNDEFINED', 'Lifescience', 'E-commerce', 'Project for Epam', 'Charity project', 'Python', 'C', 'C++',
+'Java', 'C#', 'JavaScript', 'SQL', 'PHP', 'Go', 'R', 'Swift', 'Spring', 'Angular','Node','React','Vue','Machine Learning',
+'MySQL','Postgress','MongoDB','Microsoft Server SQL','Oracle','HTML','CSS','TypeScript'];
+
+const vacantPlaces = ['Frontend Developer', 'Backend Developer', 'UI/UX Designer', 
+'Business Analyst', 'Application Support Engineer', 'Project Manager', 'Software Testing Engineer', 'Soft Automation Engineer', 'DevOps'];
+
+const vacantPositionsState = vacantPlaces.reduce((acc, item) => {
+  return {...acc, [item]: false};
+}, {});
+
+const boxStyles = {
+  display: 'flex',
+  alignItems: 'center',
+  '& > :not(style)': { m: 1 }
+};
+
 
 function CreateProject() {
-
-  const [toggleBtnGroupValue, setToggleBtnGroupValue] = React.useState('just_an_idea');
-
-  const tags = ['Stack UNDEFINED', 'Lifescience', 'E-commerce', 'Project for Epam', 'Charity project', 'Python', 'C', 'C++',
-  'Java', 'C#', 'JavaScript', 'SQL', 'PHP', 'Go', 'R', 'Swift', 'Spring', 'Angular','Node','React','Vue','Machine Learning',
-  'MySQL','Postgress','MongoDB','Microsoft Server SQL','Oracle','HTML','CSS','TypeScript'];
-
-  const vacantPlaces = ['Frontend Developer', 'Backend Developer', 'UI/UX Designer', 
-  'Business Analyst', 'Application Support Engineer', 'Project Manager', 'Software Testing Engineer', 'Soft Automation Engineer', 'DevOps'];
-  
-  const vacantPositionsState = vacantPlaces.reduce((acc, item) => {
-    return {...acc, [item]: false};
-  }, {});
 
   const [selectedTags, setSelectedTags] = React.useState([]);
   const [img, setImg] = React.useState(undefined);
@@ -30,9 +34,7 @@ function CreateProject() {
   const emailInput = React.useRef();
   const phoneInput = React.useRef();
 
-  const error = Object.keys(vacantPositions).lenght;
-
-  const toggleTagHandler = (event, value) => {
+  const toggleTagHandler = (_, value) => {
     if (selectedTags.indexOf(value) === -1) {
       setSelectedTags((prevstate) => [...prevstate, value]);
      } else {
@@ -40,17 +42,9 @@ function CreateProject() {
     };
   };
 
-  const handleOnToggleStage = (event, stage) => {
-    setStage(stage);
-  };
-
-  const handleOnToggleLanguage = (event, language) => {
-    setLanguage(language);
-  }
-
-  const handleVacantPlacesChange = (event) => {
-    setVacantPositions({...vacantPositions, [event.target.name]: event.target.checked });
-  };
+  const handleOnToggleStage = (_, stage) => setStage(stage);
+  const handleOnToggleLanguage = (_, language) => setLanguage(language);
+  const handleVacantPlacesChange = (event) => setVacantPositions({...vacantPositions, [event.target.name]: event.target.checked });
 
   const uploadImgHandler = (event) => {
     const file = event.target.files[0]; 
@@ -76,10 +70,11 @@ function CreateProject() {
       stage: stage,
       tags: selectedTags.length ? selectedTags : ["Stack UNDEFINED"],
       language: language,
-      vacant_places: Object.entries(vacantPositions).filter(([key, value]) => value).map(([key]) => key),
+      vacant_places: Object.entries(vacantPositions).filter(([_, value]) => value).map(([key]) => key),
       members_on_board: []
     };
     sendPostRequest(reqBody);
+    cleanUpForm();
   };
 
   const sendPostRequest = async (body) => {
@@ -91,7 +86,6 @@ function CreateProject() {
         });
       alert('Project created!');
     } catch(err) {
-      console.log(err)
       alert('Something went wrong');
     }
   }
@@ -111,59 +105,103 @@ function CreateProject() {
 
   return (
     <>
-    <form onSubmit={handleSubmit} className={classes.form}>
-      <div className={classes.imgContainer}>
-        <input className={classes.fileInput} type="file" name="picture" id="picture" accept="image/png, image/jpeg" placeholder="add a picture" onChange={uploadImgHandler}/>
-        <img className={classes.img} src='https://as2.ftcdn.net/v2/jpg/04/39/69/17/500_F_439691722_E5m6ba3RFSzODvlkZSpNaixEVBrv4qT8.jpg'/>
+    <form onSubmit={handleSubmit} className={styles.form}>
+      <div className={styles.imgContainer}>
+        <input 
+          className={styles.fileInput} 
+          type="file" 
+          name="picture" 
+          id="picture" 
+          accept="image/png, image/jpeg" 
+          onChange={uploadImgHandler}
+        />
+        <img 
+          alt="project" 
+          className={styles.img} 
+          src='https://as2.ftcdn.net/v2/jpg/04/39/69/17/500_F_439691722_E5m6ba3RFSzODvlkZSpNaixEVBrv4qT8.jpg'
+        />
       </div>
       <div>
-        <h2 htmlFor="name" className={classes.label}>Your project name</h2>
-        <TextField className={classes.textarea} name="name" id="name" required inputRef={nameInput}/>
+        <h2 htmlFor="name" className={styles.label}>
+          Your project name
+        </h2>
+        <TextField 
+          className={styles.textarea} 
+          name="name" 
+          id="name" 
+          required 
+          inputRef={nameInput}
+        />
       </div>
       <div>
-        <label htmlFor="about_project" className={classes.label} >About your project</label>
-        <TextField multiline rows={6} className={classes.textarea} inputRef={aboutProjectInput} placeholder="Write here about technology used on your project" name="about_project" id="about_project" required/>
+        <label htmlFor="about_project" className={styles.label} >About your project</label>
+        <TextField multiline rows={6} 
+          className={styles.textarea} 
+          inputRef={aboutProjectInput} 
+          placeholder="Write here about technology used on your project" 
+          ame="about_project" 
+          id="about_project" 
+          required
+        />
       </div>
       <div>
-        <label htmlFor="stack" className={classes.label}>Stack</label>
-        <TextField className={classes.textarea} inputRef={stackInput} multiline rows={6} type="textarea" placeholder="any details about your stack" name="stack" id="stack" required/>
+        <label htmlFor="stack" className={styles.label}>Stack</label>
+        <TextField 
+          className={styles.textarea}
+          inputRef={stackInput}
+          multiline rows={6} 
+          type="textarea" 
+          placeholder="any details about your stack" 
+          name="stack" 
+          id="stack" 
+          required
+        />
       </div>
-      <div className={classes.tags}>
-        <p className={classes.label}>Tags</p>
-        {tags.map(tag => <ToggleButton classes={{root: classes.tag}} selected={selectedTags.includes(tag)} value={tag} onChange={toggleTagHandler} key={tag}>{tag}</ToggleButton>)}
+      <div className={styles.tags}>
+        <p className={styles.label}>Tags</p>
+        {tags.map(tag => (
+          <ToggleButton 
+            classes={{root: styles.tag}}
+            selected={selectedTags.includes(tag)}
+            value={tag}
+            onChange={toggleTagHandler}
+            key={tag}>
+            {tag}
+          </ToggleButton>
+          ))}
       </div>
       <div>
-        <p className={classes.label}>Add your contacts</p>
-         <Box
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            '& > :not(style)': { m: 1 },
-            }}
-          >
-            <TextField id="email" label="Email" className={classes.contacts} required inputRef={emailInput}/>
+        <p className={styles.label}>Add your contacts</p>
+         <Box sx={boxStyles}>
+            <TextField 
+              id="email"
+              label="Email"
+              className={styles.contacts}
+              required inputRef={emailInput}/>
           </Box>
-          <Box
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            '& > :not(style)': { m: 1 },
-            }}
-          >
-            <TextField id="phone" label="Phone" className={classes.contacts} inputRef={phoneInput}/>
+          <Box sx={boxStyles}>
+            <TextField 
+              id="phone" 
+              label="Phone" 
+              className={styles.contacts} 
+              inputRef={phoneInput}
+            />
           </Box>
       </div>
       <div>
-        <p className={classes.label}>Vacant places:</p>
-         <FormControl required error={error}>
-          <FormGroup> {vacantPlaces.map((position, index) => {
-            return <FormControlLabel key={index} control={<Checkbox onChange={handleVacantPlacesChange} name={position} key={index}/>} label={position} />
-          })}
+        <p className={styles.label}>Vacant places:</p>
+         <FormControl>
+          <FormGroup> {vacantPlaces.map((position, index) => (
+            <FormControlLabel 
+              key={index} 
+              control={<Checkbox onChange={handleVacantPlacesChange} name={position} key={index}/>} 
+              label={position} 
+            />))}
           </FormGroup>
         </FormControl>
       </div>
       <div>
-        <p className={classes.label}>Current stage</p>
+        <p className={styles.label}>Current stage</p>
         <ToggleButtonGroup
           color="primary"
           value={stage}
@@ -176,8 +214,8 @@ function CreateProject() {
           <ToggleButton value="CLOSED">Closed</ToggleButton>
         </ToggleButtonGroup>
       </div>
-            <div>
-        <p className={classes.label}>Project language</p>
+      <div>
+        <p className={styles.label}>Project language</p>
         <ToggleButtonGroup
           color="primary"
           value={language}
@@ -188,7 +226,7 @@ function CreateProject() {
           <ToggleButton value="RUSSIAN">Russian</ToggleButton>
         </ToggleButtonGroup>
       </div>
-      <Button type="submit" className={classes.btn}>Publish</Button>
+      <Button type="submit" className={styles.btn}>Publish</Button>
     </form>
   </>
   );
