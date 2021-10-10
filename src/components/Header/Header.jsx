@@ -45,23 +45,12 @@ const Header = ({authorizationStatus, authInfo}) => {
         </ul>
       </nav>
       {authorizationStatus ?
-        <div className={`header__icon`}>
-          <FaceIcon
-            sx={{
-              fontSize: 40,
-              color: `#4CA4AA`,
-            }}
-          />
+        <div>
+          <FaceIcon className={`header__icon`}/>
         </div> :
         <NavLink to='/login-page' className={`login__link`}>
           <div className={`login__wrapper`}>
-            <LoginIcon
-              className={`header__icon`}
-              sx={{
-              fontSize: 40,
-              color: `#4CA4AA`,
-            }}
-            />
+            <LoginIcon className={`header__icon`}/>
             <span className={`login__text`}>Log In</span>
           </div>
         </NavLink>
