@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Carousel from 'react-material-ui-carousel';
+import { STAGES } from '../utils/const';
 
 import classes from './AboutUs.module.scss';
 
@@ -57,7 +58,7 @@ function AboutUs() {
               <Link to={`/current-project/${project.id}`}>
               <div className={classes.card} key={i} project={project} style={{ background: `url(${project.image ? project.image : 'https://raw.githubusercontent.com/MrLush/estart-ui/main/src/img/0.jpg'})`, backgroundSize: 'cover'}} >
                 <p className={classes.card__heading}>{project.name}</p>
-                <p className={classes.card__stage}>{project.stage}</p>
+                <p className={classes.card__stage}>{STAGES[project.stage]}</p>
               </div>
               </Link>
             );

@@ -6,6 +6,8 @@ import CreateProject from './pages/CreateProject';
 import LoginPage from './pages/LoginPage';
 import ProjectPage from './pages/ProjectPage';
 import Projects from './pages/Projects';
+import EditProject from './pages/EditProject';
+import MyProjects from './pages/MyProjects';
 
 import Footer from './components/Footer/Footer';
 import Header from './components/Header/Header';
@@ -34,6 +36,12 @@ function App() {
             </Route>
             <Route path='/current-project/:projectId'>
               <ProjectPage />
+            </Route>
+            <Route path='/edit-project/:projectId'>
+              <EditProject />
+            </Route>
+            <Route path='/my-projects'>
+              <MyProjects />
             </Route>
             <Route path='/'>
               <Redirect to='/about-us' />
