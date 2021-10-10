@@ -3,8 +3,9 @@ import ProjectCard from "../components/ProjectCard";
 import FilterModal from "../components/FilterModal/FilterModal";
 import classes from "./Projects.module.scss";
 
-function Projects() {
+const Projects = () => {
   const [projects, setProjects] = useState([]);
+  const [isProjectsLoaded, setProjectsLoaded] = useState(false);
 
   const [filterModalIsVisible, setfilterModalVisible] = useState(false)
 
@@ -14,7 +15,8 @@ function Projects() {
     try {
       await fetch('https://es-be-dev.herokuapp.com/projects')
       .then((response) => response.json())
-      .then((response) => setProjects(response.content));
+      .then((response) => setProjects(response.content))
+      .then(() => setProjectsLoaded(true));
     } catch(err) {
       console.log(err);
     }
@@ -22,9 +24,9 @@ function Projects() {
 
   useEffect(() => {
     getProjects();
-  }, [projects.length])
+  }, [isProjectsLoaded])
 
-  if (!projects?.length) {
+  if (!isProjectsLoaded || !projects.length) {
     return 'loading...';
   }
 
@@ -46,7 +48,7 @@ function Projects() {
           );
         })}
       </ul>
-      {filterModalIsVisible && <FilterModal></FilterModal>}
+      {filterModalIsVisible && <FilterModal setProjects={setProjects} setfilterModalVisible={setfilterModalVisible}></FilterModal>}
     </section>
   );
 }
