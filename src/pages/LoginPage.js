@@ -60,7 +60,7 @@ const LoginPage = () => {
     email: loginRef.current.value,
     password: passwordRef.current.value
   };
-  dispatch(sendPostRequest(LOGIN_ENDPOINT, reqBody));
+  sendPostRequest(LOGIN_ENDPOINT, reqBody);
   }
 
   const handleSubmitSignUp = () => {
@@ -69,7 +69,7 @@ const LoginPage = () => {
     password: passwordRef.current.value,
     name: nameRef.current.value,
   };
-  dispatch(sendPostRequest(REGISTER_ENDPOINT, reqBody));
+  sendPostRequest(REGISTER_ENDPOINT, reqBody);
   }
 
   const loginForm = () => {
