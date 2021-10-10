@@ -5,6 +5,7 @@ import LoginIcon from '@mui/icons-material/Login';
 import FaceIcon from '@mui/icons-material/Face';
 
 const Header = ({authorizationStatus, authInfo}) => {
+  console.log(authorizationStatus);
   const SiteMenuSettings = {
     PROJECTS: {
       title: `Projects`,
