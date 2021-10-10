@@ -55,8 +55,7 @@ function AboutUs() {
           projects.map((project, i) => {
             return (
               <Link to={`/current-project/${project.id}`}>
-              <div className={classes.card} key={i} project={project} >
-                <img src={project.image ? project.image : 'https://raw.githubusercontent.com/MrLush/estart-ui/main/src/img/0.jpg'} alt="project"/>
+              <div className={classes.card} key={i} project={project} style={{ background: `url(${project.image ? project.image : 'https://raw.githubusercontent.com/MrLush/estart-ui/main/src/img/0.jpg'})`, backgroundSize: 'cover'}} >
                 <p className={classes.card__heading}>{project.name}</p>
                 <p className={classes.card__stage}>{project.stage}</p>
               </div>
