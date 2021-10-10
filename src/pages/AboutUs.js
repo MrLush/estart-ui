@@ -40,18 +40,12 @@ function AboutUs() {
         Just imagine how our world could change if we provided a fertile ground for both creative commercial ideas and charity ideas aimed at making this world a better place.
       </p>
       </div>
-      <div className={classes.imgContainerIdea}>
-          <Link className={classes.btn} to='/create-project'>Create a project</Link>
-      </div>
       <p className={classes.text}>
-        If you have a project, or just an idea, and you are looking for a team to implement it, then <span className={classes.textBold}>make your Idea come true with Estart!</span>
+        If you are looking for an interesting project, want to gain new experience and improve your skills, then <span className={classes.textBold}>find your ideal project with Estart!</span>
       </p>
       <div className={classes.imgContainerTeam}>
           <Link className={classes.btn} to='/projects'>Find a project</Link>
       </div>
-      <p className={classes.text}>
-        If you are looking for an interesting project, want to gain new experience and improve your skills, then <span className={classes.textBold}>find your ideal project with Estart!</span>
-      </p>
       <h2 className={classes.heading}> Our projects</h2>
       <Carousel className={classes.carousel}>
         {
@@ -67,6 +61,12 @@ function AboutUs() {
           })
         }
       </Carousel>
+      <p className={classes.text}>
+        If you have a project, or just an idea, and you are looking for a team to implement it, then <span className={classes.textBold}>make your Idea come true with Estart!</span>
+      </p>
+      <div className={classes.imgContainerIdea}>
+          <Link className={classes.btn} to='/create-project'>Create a project</Link>
+      </div>
     </>
   );
 }
