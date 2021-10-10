@@ -7,7 +7,7 @@ const FilterModal = ({setProjects, setfilterModalVisible}) => {
   const [filterForm, setFilterForm] = useState({
     vacant_places: [],
     tags: [],
-    stage: '',
+    stage: [],
   })
   const [vacantPositions, setVacantPositions] = useState([]);
   const [selectedTags, setSelectedTags] = useState([]);
@@ -38,7 +38,7 @@ const FilterModal = ({setProjects, setfilterModalVisible}) => {
   };
 
   const handleOnToggleStage = (evt) => {
-    const {value} = evt.target
+    const {value} = evt.target;
     setStage(value);
   };
 
@@ -67,7 +67,7 @@ const FilterModal = ({setProjects, setfilterModalVisible}) => {
     let copyFilterForm = filterForm;
     copyFilterForm.vacant_places = vacantPositions;
     copyFilterForm.tags = selectedTags;
-    copyFilterForm.stage = stage;
+    copyFilterForm.stage = [stage];
     setFilterForm({...copyFilterForm});
     fetchFiltredProjects(filterForm);
     setfilterModalVisible(false);
