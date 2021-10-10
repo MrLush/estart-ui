@@ -3,8 +3,8 @@ export const ActionType = {
 };
 
 export const ActionCreator = {
-  requireAuthorization: (status) => ({
+  requireAuthorization: () => ({
     type: ActionType.REQUIRED_AUTHORIZATION,
-    payload: status,
+    payload: true,
   }),
 };

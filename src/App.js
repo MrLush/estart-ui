@@ -11,6 +11,7 @@ import MyProjects from './pages/MyProjects';
 
 import Footer from './components/Footer/Footer';
 import Header from './components/Header/Header';
+import PrivateRoute from './components/PrivateRoute';
 import Main from './components/Main';
 import './scss/app.scss';
 
@@ -28,9 +29,10 @@ function App() {
             <Route path='/projects'>
               <Projects />
             </Route>
-            <Route path='/create-project'>
-              <CreateProject />
-            </Route>
+            <PrivateRoute exact
+              path='/create-project'
+              render={() => <CreateProject />}>
+            </PrivateRoute>
             <Route path='/login-page'>
               <LoginPage />
             </Route>
