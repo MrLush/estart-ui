@@ -56,8 +56,8 @@ function ProjectPage() {
           <div className={style.project__contactsWrapper}>
           <FaceIcon className={style.userIcon}/>
           <div className={style.project__contactsInnerWrapper}>
-            <a className={style.project__emailLink} href={'mailto:test@mail.ru?subject=Apply to the project&body='+`${email}`}>{email}</a>
-            <a className={style.project__phoneLink} href='mailto:test@mail.ru'>{phone}</a>
+            <a className={style.project__emailLink} href={`mailto:${email}?subject=Apply to the project&body=${email}`}>{email}</a>
+            <a className={style.project__phoneLink} href={email}>{phone}</a>
           </div>
         </div>
         <h2 className={style.header}>Required stack</h2>
@@ -97,7 +97,7 @@ function ProjectPage() {
           </ul>
         </div>
         <h2>Project language: {language}</h2>
-        <a href={'mailto:test@mail.ru?subject=Apply to the project&body='+`${email}`} className={style.knockButton}>Knock on the project</a>
+        <a href={`mailto:${email}?subject=Apply to the project&body=${email}`} className={style.knockButton}>Knock on the project</a>
       </section>
       </article>
     </>
