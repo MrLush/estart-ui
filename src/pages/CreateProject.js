@@ -64,8 +64,8 @@ function CreateProject() {
       email: emailInput.current.value,
       phone: phoneInput.current.value,
       image: img,
-      stage: stage,
-      tags: selectedTags.length ? selectedTags : ["Stack UNDEFINED"],
+      stage: stage ? stage : 'IDEA',
+      tags: selectedTags.length ? selectedTags : ['Stack UNDEFINED'],
       language: language,
       vacant_places: Object.entries(vacantPositions).filter(([_, value]) => value).map(([key]) => key),
       members_on_board: []

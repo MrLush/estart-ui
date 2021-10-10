@@ -9,7 +9,7 @@ function MyProjects() {
     try {
       await fetch('https://es-be-dev.herokuapp.com/projects')
       .then((response) => response.json())
-      .then((response) => setProjects(response.content.slice(1, 3))); // for demo purposes
+      .then((response) => setProjects(response.content.slice(0, 3))); // for demo purposes
     } catch(err) {
       console.log(err);
     }
