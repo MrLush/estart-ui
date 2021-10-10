@@ -5,9 +5,33 @@ import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
 import style from './ProjectPage.module.scss'
 
 function ProjectPage() {
-  const [project, setProject] = useState({});
-  const {name, about_project, members_on_board, tags} = project;
   const { projectId } = useParams();
+  const [project, setProject] = useState({});
+
+  const fetchProject = async (projectId) => {
+    try {
+      await fetch('https://es-be-dev.herokuapp.com/projects/' + `${projectId}`)
+      .then( (response) => response.json() )
+      .then(( response ) => {
+        setProject(response);
+      })
+    } catch(err) {
+      console.log(err);
+      alert('Something went wrong');
+    }
+  }
+
+  useEffect(() => {
+    fetchProject(projectId);
+  }, [projectId])
+
+
+  if (!project) {
+    return 'loading...';
+  }
+
+  const {name, about_project, members_on_board, tags} = project;
+
   const Stages = {
     JUST_IN_IDEA: {
       title: 'Just in idea'
@@ -23,24 +47,6 @@ function ProjectPage() {
     },
   }
 
-  const fetchProject = async (projectId) => {
-  try {
-    fetch('https://es-be-dev.herokuapp.com/projects/' + `${projectId}`,
-      { method: 'GET',
-        headers: { 'Content-Type': 'application/json' },
-      })
-    .then( response => response.json() )
-    .then(({ response }) => (setProject(response)));
-  } catch(err) {
-    console.log(err)
-    alert('Something went wrong');
-  }
-}
-
-  useEffect(() => {
-    fetchProject(projectId);
-  }, [projectId])
-
   return (
     <>
       <article className={style.project}>
@@ -55,7 +61,7 @@ function ProjectPage() {
         </div>
         <h2 className={style.header}>Required stack</h2>
         <div className={style.project__tagsContainer}>
-          {tags.map((tag) => (
+          {tags?.length && tags.map((tag) => (
             <p className={style.project__tag}>{tag}</p>
           ))}
         </div>
@@ -72,7 +78,7 @@ function ProjectPage() {
         </p>
         <h2 className={style.header}>Vacant places</h2>
         <ul className={style.vacantPlacesList}>
-          {members_on_board.map((member) => (
+          {members_on_board?.map((member) => (
             <li className={style.vacantPlacesList__item}>
             <AssignmentIndIcon className={style.huntedIcon}/>
             <p>{member}</p>

@@ -1,51 +1,45 @@
+import React, { useState, useEffect } from 'react';
 import ProjectCard from "../components/ProjectCard";
-import Header from '../components/Header/Header';
-
+import FilterModal from "../components/FilterModal/FilterModal";
 import classes from "./Projects.module.scss";
 
 function Projects() {
-  const projectPlaceholders = [
-    {
-      id: "9cf2c046-279a-11ec-9621-0242ac130002",
-      name: "project name",
-      owner_id: "9cf2c046-279a-11ec-9621-0242ac130002",
-      stage: "IDEA",
-      stack: "lorem ipsum",
-      about_project: "lorem ipsum",
-      tags: ["tag1", "tag2", "tag3"],
-      vacant_places: ["Frontend Dev", "Backend Dev"],
-    },
-    {
-      id: "another id",
-      name: "another project name",
-      owner_id: "another owner id",
-      stage: "CLOSED",
-      stack: "lorem ipsum",
-      about_project: "lorem ipsum",
-      tags: ["tag1", "tag2", "tag3"],
-      vacant_places: ["Frontend Dev", "Backend Dev"],
-    },
-  ];
+  const [projects, setProjects] = useState([]);
 
-  let projects;
+  const [filterModalIsVisible, setfilterModalVisible] = useState(false)
+
+  const showFilterModal = () => (setfilterModalVisible(!filterModalIsVisible));
 
   const getProjects = async () => {
     try {
-      projects = await fetch('https://es-be-dev.herokuapp.com/projects');
-      const jsonRes = await projects.json();
-      console.log(jsonRes);
+      await fetch('https://es-be-dev.herokuapp.com/projects')
+      .then((response) => response.json())
+      .then((response) => setProjects(response));
     } catch(err) {
       console.log(err);
     }
 
   }
 
-  getProjects();
+  useEffect(() => {
+    getProjects();
+  }, [projects.length])
+
+  if (!projects?.length) {
+    return 'loading...';
+  }
 
   return (
-    <>
+    <section className={classes.wrapper}>
+      <button
+        className={classes.btn}
+        type="button"
+        onClick={showFilterModal}
+      >
+          Filter Projects
+      </button>
       <ul className={classes.list}>
-        {projectPlaceholders.map((projectObj) => {
+        {projects?.length && projects.map((projectObj) => {
           return (
             <li key={projectObj.id}>
               <ProjectCard project={projectObj} />
@@ -53,7 +47,8 @@ function Projects() {
           );
         })}
       </ul>
-    </>
+      {filterModalIsVisible && <FilterModal></FilterModal>}
+    </section>
   );
 }
 
