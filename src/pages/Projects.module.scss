@@ -2,8 +2,8 @@
 
 .list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, 200px);
-  grid-gap: 20px;
+  grid-template-columns: repeat(4, 1fr);
+  grid-row-gap: 50px;
   max-width: 1530px;
   padding: 0 20px;
   margin: 20px auto;

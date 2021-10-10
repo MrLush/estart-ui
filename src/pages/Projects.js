@@ -18,7 +18,6 @@ function Projects() {
     } catch(err) {
       console.log(err);
     }
-
   }
 
   useEffect(() => {
