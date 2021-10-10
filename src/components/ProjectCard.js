@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import styles from './ProjectCard.module.scss';
+import { STAGES } from '../utils/const';
 
 function ProjectCard({project}) {
 
@@ -14,7 +15,7 @@ function ProjectCard({project}) {
       <div className={`${card__side} ${card__side__front}`}>
         <img src={imgSrc} alt="project" className={img}/>
         <h2 className={header}>{name}</h2>
-        <p className={stageStyle}>{stage}</p>
+        <p className={stageStyle}>{STAGES[stage]}</p>
       </div>
       <div className={`${card__side} ${card__side__back}`}>
         <Link className={link} to={`/current-project/${id}`}>Get more information</Link>

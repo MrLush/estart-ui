@@ -9,3 +9,10 @@ export const TAGS = ['Stack UNDEFINED', 'Lifescience', 'E-commerce', 'Project fo
 
 export const VACANT_PLACES = ['Frontend Developer', 'Backend Developer', 'UI/UX Designer',
   'Business Analyst', 'Application Support Engineer', 'Project Manager', 'Software Testing Engineer', 'Soft Automation Engineer', 'DevOps'];
+
+export const STAGES = {
+  CLOSE_TO_THE_END: 'Close to the end',
+  CLOSED: 'Closed',
+  IN_PROGRESS: 'In progress',
+  IDEA: 'Idea'
+};
