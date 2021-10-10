@@ -25,9 +25,11 @@
   flex-wrap: wrap;
 }
 
-.tag {
-  padding: 5px;
-  margin: 5px;
+section {
+  .tag {
+    padding: 5px;
+    margin: 5px;
+  }
 }
 
 .vacantPlacesWrapper {
