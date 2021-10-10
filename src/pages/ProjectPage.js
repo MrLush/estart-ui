@@ -4,6 +4,7 @@ import FaceIcon from '@mui/icons-material/Face';
 import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
 import style from './ProjectPage.module.scss'
 import classNames from 'classnames';
+import { MAIL_TEXT } from '../utils/const';
 
 function ProjectPage() {
   const { projectId } = useParams();
@@ -56,7 +57,7 @@ function ProjectPage() {
           <div className={style.project__contactsWrapper}>
           <FaceIcon className={style.userIcon}/>
           <div className={style.project__contactsInnerWrapper}>
-            <a className={style.project__emailLink} href={`mailto:${email}?subject=Apply to the project&body=${email}`}>{email}</a>
+            <a className={style.project__emailLink} href={`mailto:${email}?subject=Apply to the project&body=${MAIL_TEXT}`}>{email}</a>
             <a className={style.project__phoneLink} href={email}>{phone}</a>
           </div>
         </div>
@@ -97,7 +98,7 @@ function ProjectPage() {
           </ul>
         </div>
         <h2>Project language: {language}</h2>
-        <a href={`mailto:${email}?subject=Apply to the project&body=${email}`} className={style.knockButton}>Knock on the project</a>
+        <a href={`mailto:${email}?subject=Apply to the project&body=${MAIL_TEXT}`} className={style.knockButton}>Knock on the project</a>
       </section>
       </article>
     </>

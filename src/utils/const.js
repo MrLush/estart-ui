@@ -17,5 +17,5 @@ export const STAGES = {
   IDEA: 'Idea'
 };
 
-export const MAIL_MOCK =
+export const MAIL_TEXT =
 'Please write few words about yourself in the format of what you would say when meeting a new team%0D%0A1. Add information about your skills and previous experience (Add a link to your resume if available)%0D%0A2. Why would you like to work on this project%0D%0A3. Add more contacts if needed%0D%0A4. Write questions about project if you have it'
