@@ -13,7 +13,7 @@ const Projects = () => {
 
   const getProjects = async () => {
     try {
-      await fetch('https://es-be-dev.herokuapp.com/projects')
+      await fetch('https://es-be-dev.herokuapp.com/projects?size=12')
       .then((response) => response.json())
       .then((response) => setProjects(response.content))
       .then(() => setProjectsLoaded(true));

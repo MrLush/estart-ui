@@ -42,9 +42,10 @@ function App() {
             <Route path='/edit-project/:projectId'>
               <EditProject />
             </Route>
-            <Route path='/my-projects'>
-              <MyProjects />
-            </Route>
+            <PrivateRoute exact
+              path='/my-projects'
+              render={() => <MyProjects />}>
+            </PrivateRoute>
             <Route path='/'>
               <Redirect to='/about-us' />
             </Route>
