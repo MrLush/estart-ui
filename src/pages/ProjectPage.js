@@ -1,22 +1,12 @@
-import React, { useEffect}from 'react';
+import React from 'react';
 import { useParams } from 'react-router-dom';
 import FaceIcon from '@mui/icons-material/Face';
 import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
 import style from './ProjectPage.module.scss'
 
 function ProjectPage() {
-
-  let { projectId } = useParams();
-  let project;
-
-  useEffect(() => {
-    fetch(`https://es-be-dev.herokuapp.com//projects/${projectId}`)
-    .then( response => response.json() )
-    .then( response => {
-        project = response;
-        console.log(project);
-    } );
-  }, [projectId])
+  const {name, about_project, members_on_board, tags} = project;
+  const { projectId } = useParams();
 
   const Stages = {
     JUST_IN_IDEA: {
@@ -35,7 +25,6 @@ function ProjectPage() {
 
   return (
     <>
-      {/* PROJECT PAGE FOR PROJECT WITH ID: {params.projectId} */}
       <article className={style.project}>
       <section>
         <img className={style.project__image} src="../img/team.jpeg" width="250" height="250" alt="project image"/>
@@ -48,22 +37,16 @@ function ProjectPage() {
         </div>
         <h2 className={style.header}>Required stack</h2>
         <div className={style.project__tagsContainer}>
-          <p className={style.project__tag}>Angular</p>
-          <p className={style.project__tag}>React</p>
-          <p className={style.project__tag}>Vue</p>
-          <p className={style.project__tag}>Java</p>
-          <p className={style.project__tag}>TypeScript</p>
-          <p className={style.project__tag}>Figma</p>
-          <p className={style.project__tag}>MongoDB</p>
-          <p className={style.project__tag}>JS</p>
-          <p className={style.project__tag}>Docker</p>
+          {tags.map((tag) => (
+            <p className={style.project__tag}>{tag}</p>
+          ))}
         </div>
       </section>
       <section className={style.columnTwo}>
-        <h1 className={style.project__header}>Name project</h1>
+        <h1 className={style.project__header}>{name}</h1>
         <h2 className={style.header}>About project</h2>
         <p className={style.project__intro}>
-          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
+          {about_project}
         </p>
         <h2 className={style.header}>About stack</h2>
         <p className={style.project__intro}>
@@ -71,26 +54,12 @@ function ProjectPage() {
         </p>
         <h2 className={style.header}>Vacant places</h2>
         <ul className={style.vacantPlacesList}>
-          <li className={style.vacantPlacesList__item}>
+          {members_on_board.map((member) => (
+            <li className={style.vacantPlacesList__item}>
             <AssignmentIndIcon className={style.huntedIcon}/>
-            <p>Front-end developer</p>
+            <p>{member}</p>
           </li>
-          <li className={style.vacantPlacesList__item}>
-            <AssignmentIndIcon className={style.huntedIcon}/>
-            <p>Back-end developer</p>
-          </li>
-          <li className={style.vacantPlacesList__item}>
-            <AssignmentIndIcon className={style.huntedIcon}/>
-            <p>UX/UI Designer</p>
-          </li>
-          <li className={style.vacantPlacesList__item}>
-            <AssignmentIndIcon className={style.huntedIcon}/>
-            <p>Business Analyst</p>
-          </li>
-          <li className={style.vacantPlacesList__item}>
-            <AssignmentIndIcon className={style.huntedIcon}/>
-            <p>QA</p>
-          </li>
+          ))}
         </ul>
         <h2 className={style.headerStage}>Current stage of project</h2>
         <div className={style.stagesWrapper}>
