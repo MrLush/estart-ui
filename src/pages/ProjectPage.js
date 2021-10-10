@@ -38,7 +38,7 @@ function ProjectPage() {
   const imgSrc = image && image.length ? image : `https://raw.githubusercontent.com/MrLush/estart-ui/main/src/img/${randomImg}.jpg`;
 
   const Stages = {
-    JUST_IN_IDEA: {
+    IDEA: {
       title: 'Just in idea'
     },
     IN_PROGRESS: {
