@@ -1,15 +1,9 @@
 import React from 'react';
 import { Button, ToggleButtonGroup, ToggleButton, TextField, Box, FormGroup, FormControlLabel, Checkbox, FormControl } from '@mui/material';
 import styles from './CreateProject.module.scss';
+import { TAGS, VACANT_PLACES } from '../utils/const';
 
-const tags = ['Stack UNDEFINED', 'Lifescience', 'E-commerce', 'Project for Epam', 'Charity project', 'Python', 'C', 'C++',
-'Java', 'C#', 'JavaScript', 'SQL', 'PHP', 'Go', 'R', 'Swift', 'Spring', 'Angular','Node','React','Vue','Machine Learning',
-'MySQL','Postgress','MongoDB','Microsoft Server SQL','Oracle','HTML','CSS','TypeScript'];
-
-const vacantPlaces = ['Frontend Developer', 'Backend Developer', 'UI/UX Designer', 
-'Business Analyst', 'Application Support Engineer', 'Project Manager', 'Software Testing Engineer', 'Soft Automation Engineer', 'DevOps'];
-
-const vacantPositionsState = vacantPlaces.reduce((acc, item) => {
+const vacantPositionsState = VACANT_PLACES.reduce((acc, item) => {
   return {...acc, [item]: false};
 }, {});
 
@@ -47,7 +41,7 @@ function CreateProject() {
   const handleVacantPlacesChange = (event) => setVacantPositions({...vacantPositions, [event.target.name]: event.target.checked });
 
   const uploadImgHandler = (event) => {
-    const file = event.target.files[0]; 
+    const file = event.target.files[0];
     let nextSibling = event.target.nextElementSibling;
     const reader = new FileReader();
     reader.addEventListener("load", function(e) {
@@ -79,9 +73,9 @@ function CreateProject() {
 
   const sendPostRequest = async (body) => {
     try {
-      fetch('https://es-be-dev.herokuapp.com/projects', 
+      fetch('https://es-be-dev.herokuapp.com/projects',
         { method: 'POST',
-          headers: { 'Content-Type': 'application/json' }, 
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(body)
         });
       alert('Project created!');
@@ -159,7 +153,7 @@ function CreateProject() {
       </div>
       <div className={styles.tags}>
         <p className={styles.label}>Tags</p>
-        {tags.map(tag => (
+        {TAGS.map(tag => (
           <ToggleButton 
             classes={{root: styles.tag}}
             selected={selectedTags.includes(tag)}
@@ -191,7 +185,7 @@ function CreateProject() {
       <div>
         <p className={styles.label}>Vacant places:</p>
          <FormControl>
-          <FormGroup> {vacantPlaces.map((position, index) => (
+          <FormGroup> {VACANT_PLACES.map((position, index) => (
             <FormControlLabel 
               key={index} 
               control={<Checkbox onChange={handleVacantPlacesChange} name={position} key={index}/>} 
