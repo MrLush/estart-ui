@@ -1,24 +1,27 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Carousel from 'react-material-ui-carousel';
 
 import classes from './AboutUs.module.scss';
 
 function AboutUs() {
-
   const [projects, setProjects] = useState([]);
+  const [isProjectsLoaded, setProjectsLoaded] = useState(false);
 
   const getProjects = async () => {
     try {
       await fetch('https://es-be-dev.herokuapp.com/projects')
       .then((response) => response.json())
-      .then((response) => setProjects(response.content.slice(0, 5)));
+      .then((response) => setProjects(response.content.slice(0,5)))
+      .then(() => setProjectsLoaded(true));
     } catch(err) {
       console.log(err);
     }
   }
 
-  getProjects();
+  useEffect(() => {
+    getProjects();
+  }, [isProjectsLoaded])
 
   return (
     <>
