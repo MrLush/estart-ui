@@ -1,15 +1,19 @@
 import { Link } from 'react-router-dom';
-import classes from './ProjectCard.module.scss';
+import styles from './ProjectCard.module.scss';
 
 function ProjectCard(props) {
+
+  const randomImg = Math.floor(Math.random() * 10);
+  
   return (
-    <div className={classes.card}>
-      <div className={`${classes.card__side} ${classes.card__side__front}`}>
-        <h2 className={classes.header}>{props.project.name}</h2>
-        <p className={classes.stage}>{props.project.stage}</p>
+    <div className={styles.card}>
+      <div className={`${styles.card__side} ${styles.card__side__front}`}>
+        <img src={`https://github.com/MrLush/estart-ui/blob/main/src/img/${randomImg}.jpg`} alt="project" className={styles.img}/>
+        <h2 className={styles.header}>{props.project.name}</h2>
+        <p className={styles.stage}>{props.project.stage}</p>
       </div>
-      <div className={`${classes.card__side} ${classes.card__side__back}`}>
-        <Link className={classes.link} to={`/current-project/${props.project.id}`}>Get more information</Link>
+      <div className={`${styles.card__side} ${styles.card__side__back}`}>
+        <Link className={styles.link} to={`/current-project/${props.project.id}`}>Get more information</Link>
       </div>
     </div>
   )

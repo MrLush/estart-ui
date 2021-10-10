@@ -136,7 +136,7 @@ function CreateProject() {
         <TextField multiline rows={6} 
           className={styles.textarea} 
           inputRef={aboutProjectInput} 
-          placeholder="Write here about technology used on your project" 
+          placeholder="Write here the main Idea of your project, the problem it solves, the Target audience, Deadlines, Main Features, About your Team, who is already on the board, Who are you looking for to realize your Idea and other interesting things about your project." 
           ame="about_project" 
           id="about_project" 
           required
