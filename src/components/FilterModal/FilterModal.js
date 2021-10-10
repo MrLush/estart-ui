@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import style from './FilterModal.module.scss'
 import { VACANT_PLACES, TAGS} from '../../utils/const';
-import { Button, ToggleButtonGroup, ToggleButton, TextField, Box, FormGroup, FormControlLabel, Checkbox, FormControl } from '@mui/material';
+import { ToggleButtonGroup, ToggleButton, FormGroup, FormControlLabel, Checkbox, FormControl } from '@mui/material';
 
 const FilterModal = ({setProjects, setfilterModalVisible}) => {
   const [filterForm, setFilterForm] = useState({
@@ -73,6 +73,8 @@ const FilterModal = ({setProjects, setfilterModalVisible}) => {
     setfilterModalVisible(false);
   };
 
+  const handleCancel = () => setfilterModalVisible(false);
+
   return (
     <section className={style.modal}>
       <form className={style.form} onSubmit={handleSubmit}>
@@ -90,7 +92,7 @@ const FilterModal = ({setProjects, setfilterModalVisible}) => {
         <div className={style.tagsContainer}>
         {TAGS.map(tag =>
           <ToggleButton
-            className={style.tag}
+            classes={{root: style.tag}}
             selected={selectedTags.includes(tag)}
             value={tag}
             onChange={toggleTagHandler}
@@ -115,7 +117,7 @@ const FilterModal = ({setProjects, setfilterModalVisible}) => {
       </div>
       <div className={style.btnWrapper}>
         <button type="submit" className={style.btn}>FILTER</button>
-        <button type="button" className={style.btn}>CANCEL</button>
+        <button type="button" className={style.btn} onClick={handleCancel}>CANCEL</button>
       </div>
       </form>
     </section>

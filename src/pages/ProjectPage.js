@@ -34,9 +34,6 @@ function ProjectPage() {
 
   const {name, about_project, members_on_board, tags, image, stage } = project;
 
-  const randomImg = Math.floor(Math.random() * 10);
-  const imgSrc = image && image.length ? image : `https://raw.githubusercontent.com/MrLush/estart-ui/main/src/img/${randomImg}.jpg`;
-
   const Stages = {
     IDEA: {
       title: 'Just in idea'
@@ -56,7 +53,7 @@ function ProjectPage() {
     <>
       <article className={style.project}>
       <section>
-        <img className={style.project__image} src={imgSrc} width="250" height="250" alt="project"/>
+        {image && image.length && <img className={style.project__image} src={image} width="250" height="250" alt="project"/> }
           <div className={style.project__contactsWrapper}>
           <FaceIcon className={style.userIcon}/>
           <div className={style.project__contactsInnerWrapper}>
