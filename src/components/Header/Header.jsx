@@ -1,10 +1,10 @@
-import React, { useState }from 'react';
+import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import LoginIcon from '@mui/icons-material/Login';
 import FaceIcon from '@mui/icons-material/Face';
 
-const Header = () => {
+const Header = ({authorizationStatus, authInfo}) => {
   const SiteMenuSettings = {
     PROJECTS: {
       title: `Projects`,
@@ -43,19 +43,7 @@ const Header = () => {
           ))}
         </ul>
       </nav>
-      <NavLink to='/login-page' className={`login__link`}>
-          <div className={`login__wrapper`}>
-            <LoginIcon
-              className={`header__icon`}
-              sx={{
-              fontSize: 40,
-              color: `#4CA4AA`,
-            }}
-            />
-            <span className={`login__text`}>Log In</span>
-          </div>
-        </NavLink>
-      {/* {authorizationStatus &&
+      {authorizationStatus ?
         <div className={`header__icon`}>
           <FaceIcon
             sx={{
@@ -63,7 +51,7 @@ const Header = () => {
               color: `#4CA4AA`,
             }}
           />
-        </div> ||
+        </div> :
         <NavLink to='/login-page' className={`login__link`}>
           <div className={`login__wrapper`}>
             <LoginIcon
@@ -76,14 +64,14 @@ const Header = () => {
             <span className={`login__text`}>Log In</span>
           </div>
         </NavLink>
-      } */}
+      }
     </header>
   );
 }
 
-const mapStateToProps = (state) => ({
-  authorizationStatus: state.authorizationStatus,
-  authInfo: state.authInfo
+const mapStateToProps = ({authorizationStatus, authInfo}) => ({
+  authorizationStatus,
+  authInfo,
 });
 
 export { Header };

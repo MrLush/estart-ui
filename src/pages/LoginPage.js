@@ -1,12 +1,16 @@
 
 import React, { useRef, useState }from 'react';
 import { useHistory } from 'react-router';
+import {useDispatch} from 'react-redux';
 import Input from '@mui/material/Input';
 import { styled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
+import { ActionCreator } from '../store/action';
+import { AuthorizationStatus } from '../utils/const';
 
 const LoginPage = () => {
   const history = useHistory();
+  const dispatch = useDispatch();
   const loginRef = useRef();
   const passwordRef = useRef();
   const nameRef = useRef();
@@ -41,6 +45,7 @@ const LoginPage = () => {
         }
     })
     .then((response) => {
+      dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
       localStorage.setItem("accessToken", response.accessToken);
     })
     .catch(err => {
@@ -55,7 +60,7 @@ const LoginPage = () => {
     email: loginRef.current.value,
     password: passwordRef.current.value
   };
-  sendPostRequest(LOGIN_ENDPOINT, reqBody);
+  dispatch(sendPostRequest(LOGIN_ENDPOINT, reqBody));
   }
 
   const handleSubmitSignUp = () => {
@@ -64,7 +69,7 @@ const LoginPage = () => {
     password: passwordRef.current.value,
     name: nameRef.current.value,
   };
-  sendPostRequest(REGISTER_ENDPOINT, reqBody);
+  dispatch(sendPostRequest(REGISTER_ENDPOINT, reqBody));
   }
 
   const loginForm = () => {
