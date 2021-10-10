@@ -7,14 +7,12 @@ const initialState = {
 };
 
 const reducer = (state = initialState, action) => {
-  switch (action.type) {
-    case ActionType.REQUIRED_AUTHORIZATION:
-      return {
-        ...state,
-        test: action.payload
-      };
-  }
-
+  if (action.type === ActionType.REQUIRED_AUTHORIZATION) {
+    return {
+      ...state,
+      authorizationStatus: action.payload
+    };
+  } 
   return state;
 };
 
