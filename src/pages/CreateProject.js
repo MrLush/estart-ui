@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory } from 'react-router';
 import { Button, ToggleButtonGroup, ToggleButton, TextField, Box, FormGroup, FormControlLabel, Checkbox, FormControl } from '@mui/material';
 import styles from './CreateProject.module.scss';
 import { TAGS, VACANT_PLACES } from '../utils/const';
@@ -27,6 +28,8 @@ function CreateProject() {
   const stackInput = React.useRef();
   const emailInput = React.useRef();
   const phoneInput = React.useRef();
+
+  const history = useHistory();
 
   const toggleTagHandler = (_, value) => {
     if (selectedTags.indexOf(value) === -1) {
@@ -82,6 +85,7 @@ function CreateProject() {
     } catch(err) {
       alert('Something went wrong');
     }
+    history.push('/projects');
   }
 
   const cleanUpForm = () => {
