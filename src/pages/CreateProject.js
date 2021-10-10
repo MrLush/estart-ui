@@ -3,6 +3,39 @@ import { useHistory } from 'react-router';
 import { Button, ToggleButtonGroup, ToggleButton, TextField, Box, FormGroup, FormControlLabel, Checkbox, FormControl } from '@mui/material';
 import styles from './CreateProject.module.scss';
 import { TAGS, VACANT_PLACES } from '../utils/const';
+import { Editor } from '@tinymce/tinymce-react';
+
+  // TinyMCE so the global var exists
+  // eslint-disable-next-line no-unused-vars
+  import tinymce from 'tinymce/tinymce';
+
+  // Theme
+  import 'tinymce/themes/silver';
+  // Toolbar icons
+  import 'tinymce/icons/default';
+  // Editor styles
+  import 'tinymce/skins/ui/oxide/skin.min.css';
+
+  // importing the plugin js.
+  import 'tinymce/plugins/advlist';
+  import 'tinymce/plugins/autolink';
+  import 'tinymce/plugins/link';
+  import 'tinymce/plugins/image';
+  import 'tinymce/plugins/lists';
+  import 'tinymce/plugins/charmap';
+  import 'tinymce/plugins/hr';
+  import 'tinymce/plugins/anchor';
+  import 'tinymce/plugins/spellchecker';
+  import 'tinymce/plugins/searchreplace';
+  import 'tinymce/plugins/wordcount';
+  import 'tinymce/plugins/code';
+  import 'tinymce/plugins/fullscreen';
+  import 'tinymce/plugins/insertdatetime';
+  import 'tinymce/plugins/media';
+  import 'tinymce/plugins/nonbreaking';
+  import 'tinymce/plugins/table';
+  import 'tinymce/plugins/template';
+  import 'tinymce/plugins/help';
 
 const vacantPositionsState = VACANT_PLACES.reduce((acc, item) => {
   return {...acc, [item]: false};
@@ -14,6 +47,63 @@ const boxStyles = {
   '& > :not(style)': { m: 1 }
 };
 
+function TinyEditorComponent(props) {
+    // note that skin and content_css is disabled to avoid the normal
+    // loading process and is instead loaded as a string via content_style
+
+    return (
+      <Editor
+        initialValue="<p>Write here the main Idea of your project, the problem it solves, the Target audience, Deadlines, Main Features, About your Team, who is already on the board, Who are you looking for to realize your Idea and other interesting things about your project.</p>"
+        apiKey='hqjui8xfno72p6brq6uoox2idxw4icq8ae3sl1lmvrqp53vp'
+        init={{
+            selector: "textarea",
+            branding: false,
+            plugins: 'link lists media image code',
+            toolbar: 'alignleft aligncenter alignright alignjustify | formatselect | bullist numlist | outdent indent | link image code',
+            toolbar_mode: 'floating',
+            skin: "outside",
+            placeholder: "",
+            /* enable title field in the Image dialog*/
+            image_title: true,
+
+            /* enable automatic uploads of images represented by blob or data URIs*/
+            automatic_uploads: true,
+
+            /*Here we add custom filepicker only to Image dialog*/
+            file_picker_types: 'image',
+            paste_data_images: true,
+            /* and here's our custom image picker*/
+            file_picker_callback: function (cb, value, meta) {
+                var input = document.createElement('input');
+                input.setAttribute('type', 'file');
+                input.setAttribute('accept', 'image/*');
+                input.onchange = function () {
+                    var file = this.files[0];
+                    var base64;
+                    var reader = new FileReader();
+                    reader.onload = function () {
+                        /*
+                        Note: Now we need to register the blob in TinyMCEs image blob
+                        registry. In the next release this part hopefully won't be
+                        necessary, as we are looking to handle it internally.
+                        */
+                        var id = 'blobid' + (new Date()).getTime();
+                        var blobCache =  tinymce.activeEditor.editorUpload.blobCache;
+                        base64 = reader.result.split(',')[1];
+
+                        var blobInfo = blobCache.create(id, file, base64);
+                        blobCache.add(blobInfo);
+                        /* call the callback and populate the Title field with the file name */
+                        cb(blobInfo.blobUri(), { title: file.name });
+                    };
+                    reader.readAsDataURL(base64);
+                };
+                input.click();
+                }
+        }}
+      />
+    );
+  }
 
 function CreateProject() {
 
@@ -59,7 +149,7 @@ function CreateProject() {
     const reqBody = {
       owner_id: 'c9de5e88-294a-11ec-9621-0242ac130002',
       name: nameInput.current.value,
-      about_project: aboutProjectInput.current.value,
+      about_project: aboutProjectInput.current.getContent(),
       stack: stackInput.current.value,
       email: emailInput.current.value,
       phone: phoneInput.current.value,
@@ -132,15 +222,79 @@ function CreateProject() {
         />
       </div>
       <div>
-        <label htmlFor="about_project" className={styles.label} >About your project</label>
-        <TextField multiline rows={6} 
-          className={styles.textarea} 
-          inputRef={aboutProjectInput} 
-          placeholder="Write here the main Idea of your project, the problem it solves, the Target audience, Deadlines, Main Features, About your Team, who is already on the board, Who are you looking for to realize your Idea and other interesting things about your project." 
-          ame="about_project" 
-          id="about_project" 
-          required
-        />
+          <label htmlFor="about_project" className={styles.label} >About your project</label>
+          <Editor
+              className={styles.textarea}
+              name="about_project"
+              id="about_project"
+              required
+              onInit={(evt, editor) => aboutProjectInput.current = editor}
+              initialValue="<p>Write here the main Idea of your project, the problem it solves, the Target audience, Deadlines, Main Features, About your Team, who is already on the board, Who are you looking for to realize your Idea and other interesting things about your project.</p>"
+              apiKey='hqjui8xfno72p6brq6uoox2idxw4icq8ae3sl1lmvrqp53vp'
+              init={{
+                  selector: "textarea",
+                  branding: false,
+                  plugins: 'link lists media image code',
+                  toolbar: 'alignleft aligncenter alignright alignjustify | formatselect | bullist numlist | outdent indent | link image code',
+                  toolbar_mode: 'floating',
+                  skin: "outside",
+                  images_upload_handler: function (blobInfo, success, failure) {
+                              var xhr, formData;
+                              xhr = new XMLHttpRequest();
+                              xhr.withCredentials = false;
+                              xhr.open('POST', 'https://es-be-dev.herokuapp.com/projects/images');
+                              xhr.onload = function () {
+                                  var json;
+                                  if (xhr.status != 200) {
+                                      failure('HTTP Error: ' + xhr.status);
+                                      return;
+                                  }
+                                  json = xhr.responseText;
+                                  success(json);
+                              };
+                              formData = new FormData();
+                              formData.append('file', blobInfo.blob(), blobInfo.filename());
+                              xhr.send(formData);
+                          },
+                          /* enable title field in the Image dialog*/
+                          image_title: true,
+
+                          /* enable automatic uploads of images represented by blob or data URIs*/
+                          automatic_uploads: true,
+
+                          /*Here we add custom filepicker only to Image dialog*/
+                          file_picker_types: 'image',
+
+                          /* and here's our custom image picker*/
+                          file_picker_callback: function (cb, value, meta) {
+                              var input = document.createElement('input');
+                              input.setAttribute('type', 'file');
+                              input.setAttribute('accept', 'image/*');
+                              input.onchange = function () {
+                                  var file = this.files[0];
+                                  var reader = new FileReader();
+                                  reader.onload = function () {
+                                      /*
+                                      Note: Now we need to register the blob in TinyMCEs image blob
+                                      registry. In the next release this part hopefully won't be
+                                      necessary, as we are looking to handle it internally.
+                                      */
+                                      var id = 'blobid' + (new Date()).getTime();
+                                      var blobCache =  tinymce.activeEditor.editorUpload.blobCache;
+                                      var base64 = reader.result.split(',')[1];
+
+                                      var blobInfo = blobCache.create(id, file, base64);
+                                      blobCache.add(blobInfo);
+                                      /* call the callback and populate the Title field with the file name */
+                                      cb(blobInfo.blobUri(), { title: file.name });
+                                  };
+                                  reader.readAsDataURL(file);
+                              };
+                              input.click();
+                          }
+
+              }}
+            />
       </div>
       <div>
         <label htmlFor="stack" className={styles.label}>Stack</label>
