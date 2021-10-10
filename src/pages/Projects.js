@@ -14,7 +14,7 @@ function Projects() {
     try {
       await fetch('https://es-be-dev.herokuapp.com/projects')
       .then((response) => response.json())
-      .then((response) => setProjects(response));
+      .then((response) => setProjects(response.content));
     } catch(err) {
       console.log(err);
     }
