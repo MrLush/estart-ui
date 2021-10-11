@@ -26,23 +26,8 @@ const Projects = () => {
     getProjects();
   }, [isProjectsLoaded])
 
-  if (!isProjectsLoaded) {
+  if (!isProjectsLoaded || !projects.length) {
     return 'loading...';
-  }
-
-  if (!projects.length) {
-      return (
-          <section className={classes.wrapper}>
-              <button
-                  className={classes.btn}
-                  type="button"
-                  onClick={showFilterModal}
-              >
-                  Filter Projects
-              </button>
-              Sorry, but we don't found any projects with specified filter! Try to narrow your search!
-          </section>
-      );
   }
 
   return (
