@@ -3,6 +3,11 @@ import { useHistory } from 'react-router';
 import { Button, ToggleButtonGroup, ToggleButton, TextField, Box, FormGroup, FormControlLabel, Checkbox, FormControl } from '@mui/material';
 import styles from './CreateProject.module.scss';
 import { TAGS, VACANT_PLACES } from '../utils/const';
+import { Editor } from '@tinymce/tinymce-react';
+
+// TinyMCE so the global var exists
+// eslint-disable-next-line no-unused-vars
+import tinymce from 'tinymce/tinymce';
 
 const vacantPositionsState = VACANT_PLACES.reduce((acc, item) => {
   return {...acc, [item]: false};
@@ -59,7 +64,7 @@ function CreateProject() {
     const reqBody = {
       // owner_id: 'c9de5e88-294a-11ec-9621-0242ac130002',
       name: nameInput.current.value,
-      about_project: aboutProjectInput.current.value,
+      about_project: aboutProjectInput.current.getContent(),
       stack: stackInput.current.value,
       email: emailInput.current.value,
       phone: phoneInput.current.value,
@@ -137,14 +142,23 @@ function CreateProject() {
       </div>
       <div>
         <label htmlFor="about_project" className={styles.label} >About your project</label>
-        <TextField multiline rows={6}
-          className={styles.textarea}
-          inputRef={aboutProjectInput}
-          placeholder="Write here the main Idea of your project, the problem it solves, the Target audience, Deadlines, Main Features, About your Team, who is already on the board, Who are you looking for to realize your Idea and other interesting things about your project."
-          ame="about_project"
-          id="about_project"
-          required
-        />
+        <Editor
+              className={styles.textarea}
+              name="about_project"
+              id="about_project"
+              required
+              onInit={(evt, editor) => aboutProjectInput.current = editor}
+              initialValue="<p>Write here the main Idea of your project, the problem it solves, the Target audience, Deadlines, Main Features, About your Team, who is already on the board, Who are you looking for to realize your Idea and other interesting things about your project.</p>"
+              apiKey='hqjui8xfno72p6brq6uoox2idxw4icq8ae3sl1lmvrqp53vp'
+              init={{
+                  selector: "textarea",
+                  branding: false,
+                  plugins: 'link lists media code',
+                  toolbar: 'alignleft aligncenter alignright alignjustify | formatselect | bullist numlist | outdent indent | link code',
+                  toolbar_mode: 'floating',
+                  skin: "outside",
+              }}
+            />
       </div>
       <div>
         <label htmlFor="stack" className={styles.label}>Stack</label>

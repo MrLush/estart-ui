@@ -71,9 +71,10 @@ function ProjectPage() {
       <section className={style.columnTwo}>
         <h1 className={style.project__header}>{name}</h1>
         <h2 className={style.header}>About project</h2>
-        <p className={style.project__intro}>
-          {about_project}
-        </p>
+        <div dangerouslySetInnerHTML={{
+            __html: about_project
+          }}>
+        </div>
         <h2 className={style.header}>About stack</h2>
         <p className={style.project__intro}>{stack}</p>
         <h2 className={style.header}>Vacant places</h2>
