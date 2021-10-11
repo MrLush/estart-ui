@@ -8,6 +8,31 @@ import { Editor } from '@tinymce/tinymce-react';
 // TinyMCE so the global var exists
 // eslint-disable-next-line no-unused-vars
 import tinymce from 'tinymce/tinymce';
+  // Theme
+  import 'tinymce/themes/silver';
+  // Toolbar icons
+  import 'tinymce/icons/default';
+  // Editor styles
+  import 'tinymce/skins/ui/oxide/skin.min.css';
+
+  // importing the plugin js.
+  import 'tinymce/plugins/advlist';
+  import 'tinymce/plugins/autolink';
+  import 'tinymce/plugins/link';
+  import 'tinymce/plugins/lists';
+  import 'tinymce/plugins/charmap';
+  import 'tinymce/plugins/hr';
+  import 'tinymce/plugins/anchor';
+  import 'tinymce/plugins/spellchecker';
+  import 'tinymce/plugins/searchreplace';
+  import 'tinymce/plugins/wordcount';
+  import 'tinymce/plugins/code';
+  import 'tinymce/plugins/fullscreen';
+  import 'tinymce/plugins/insertdatetime';
+  import 'tinymce/plugins/media';
+  import 'tinymce/plugins/nonbreaking';
+  import 'tinymce/plugins/table';
+  import 'tinymce/plugins/template';
 
 const vacantPositionsState = VACANT_PLACES.reduce((acc, item) => {
   return {...acc, [item]: false};
