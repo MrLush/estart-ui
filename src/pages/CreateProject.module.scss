@@ -1,7 +1,7 @@
 .form {
   display: grid;
   grid-template-columns: 230px 1fr;
-  grid-template-rows: 100px;
+  grid-template-rows: 100px repeat(2, 230px) ;
   grid-gap: 10px;
 
   label {
