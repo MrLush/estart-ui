@@ -25,7 +25,7 @@ function MyProjects() {
   }, [projects.length])
 
   if (!projects?.length) {
-    return 'Sorry, but we don\'t found any of your projects! Try to create one!';
+    return 'loading...';
   }
 
   return (
