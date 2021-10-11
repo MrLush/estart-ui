@@ -47,64 +47,6 @@ const boxStyles = {
   '& > :not(style)': { m: 1 }
 };
 
-function TinyEditorComponent(props) {
-    // note that skin and content_css is disabled to avoid the normal
-    // loading process and is instead loaded as a string via content_style
-
-    return (
-      <Editor
-        initialValue="<p>Write here the main Idea of your project, the problem it solves, the Target audience, Deadlines, Main Features, About your Team, who is already on the board, Who are you looking for to realize your Idea and other interesting things about your project.</p>"
-        apiKey='hqjui8xfno72p6brq6uoox2idxw4icq8ae3sl1lmvrqp53vp'
-        init={{
-            selector: "textarea",
-            branding: false,
-            plugins: 'link lists media image code',
-            toolbar: 'alignleft aligncenter alignright alignjustify | formatselect | bullist numlist | outdent indent | link image code',
-            toolbar_mode: 'floating',
-            skin: "outside",
-            placeholder: "",
-            /* enable title field in the Image dialog*/
-            image_title: true,
-
-            /* enable automatic uploads of images represented by blob or data URIs*/
-            automatic_uploads: true,
-
-            /*Here we add custom filepicker only to Image dialog*/
-            file_picker_types: 'image',
-            paste_data_images: true,
-            /* and here's our custom image picker*/
-            file_picker_callback: function (cb, value, meta) {
-                var input = document.createElement('input');
-                input.setAttribute('type', 'file');
-                input.setAttribute('accept', 'image/*');
-                input.onchange = function () {
-                    var file = this.files[0];
-                    var base64;
-                    var reader = new FileReader();
-                    reader.onload = function () {
-                        /*
-                        Note: Now we need to register the blob in TinyMCEs image blob
-                        registry. In the next release this part hopefully won't be
-                        necessary, as we are looking to handle it internally.
-                        */
-                        var id = 'blobid' + (new Date()).getTime();
-                        var blobCache =  tinymce.activeEditor.editorUpload.blobCache;
-                        base64 = reader.result.split(',')[1];
-
-                        var blobInfo = blobCache.create(id, file, base64);
-                        blobCache.add(blobInfo);
-                        /* call the callback and populate the Title field with the file name */
-                        cb(blobInfo.blobUri(), { title: file.name });
-                    };
-                    reader.readAsDataURL(base64);
-                };
-                input.click();
-                }
-        }}
-      />
-    );
-  }
-
 function CreateProject() {
 
   const [selectedTags, setSelectedTags] = React.useState([]);
@@ -238,65 +180,10 @@ function CreateProject() {
               init={{
                   selector: "textarea",
                   branding: false,
-                  plugins: 'link lists media image code',
-                  toolbar: 'alignleft aligncenter alignright alignjustify | formatselect | bullist numlist | outdent indent | link image code',
+                  plugins: 'link lists media code',
+                  toolbar: 'alignleft aligncenter alignright alignjustify | formatselect | bullist numlist | outdent indent | link code',
                   toolbar_mode: 'floating',
                   skin: "outside",
-                  images_upload_handler: function (blobInfo, success, failure) {
-                              var xhr, formData;
-                              xhr = new XMLHttpRequest();
-                              xhr.withCredentials = false;
-                              xhr.open('POST', 'https://es-be-dev.herokuapp.com/projects/images');
-                              xhr.onload = function () {
-                                  var json;
-                                  if (xhr.status != 200) {
-                                      failure('HTTP Error: ' + xhr.status);
-                                      return;
-                                  }
-                                  json = xhr.responseText;
-                                  success(json);
-                              };
-                              formData = new FormData();
-                              formData.append('file', blobInfo.blob(), blobInfo.filename());
-                              xhr.send(formData);
-                          },
-                          /* enable title field in the Image dialog*/
-                          image_title: true,
-
-                          /* enable automatic uploads of images represented by blob or data URIs*/
-                          automatic_uploads: true,
-
-                          /*Here we add custom filepicker only to Image dialog*/
-                          file_picker_types: 'image',
-
-                          /* and here's our custom image picker*/
-                          file_picker_callback: function (cb, value, meta) {
-                              var input = document.createElement('input');
-                              input.setAttribute('type', 'file');
-                              input.setAttribute('accept', 'image/*');
-                              input.onchange = function () {
-                                  var file = this.files[0];
-                                  var reader = new FileReader();
-                                  reader.onload = function () {
-                                      /*
-                                      Note: Now we need to register the blob in TinyMCEs image blob
-                                      registry. In the next release this part hopefully won't be
-                                      necessary, as we are looking to handle it internally.
-                                      */
-                                      var id = 'blobid' + (new Date()).getTime();
-                                      var blobCache =  tinymce.activeEditor.editorUpload.blobCache;
-                                      var base64 = reader.result.split(',')[1];
-
-                                      var blobInfo = blobCache.create(id, file, base64);
-                                      blobCache.add(blobInfo);
-                                      /* call the callback and populate the Title field with the file name */
-                                      cb(blobInfo.blobUri(), { title: file.name });
-                                  };
-                                  reader.readAsDataURL(file);
-                              };
-                              input.click();
-                          }
-
               }}
             />
       </div>
