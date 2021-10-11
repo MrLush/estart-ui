@@ -3,39 +3,6 @@ import { useHistory } from 'react-router';
 import { Button, ToggleButtonGroup, ToggleButton, TextField, Box, FormGroup, FormControlLabel, Checkbox, FormControl } from '@mui/material';
 import styles from './CreateProject.module.scss';
 import { TAGS, VACANT_PLACES } from '../utils/const';
-import { Editor } from '@tinymce/tinymce-react';
-
-  // TinyMCE so the global var exists
-  // eslint-disable-next-line no-unused-vars
-  import tinymce from 'tinymce/tinymce';
-
-  // Theme
-  import 'tinymce/themes/silver';
-  // Toolbar icons
-  import 'tinymce/icons/default';
-  // Editor styles
-  import 'tinymce/skins/ui/oxide/skin.min.css';
-
-  // importing the plugin js.
-  import 'tinymce/plugins/advlist';
-  import 'tinymce/plugins/autolink';
-  import 'tinymce/plugins/link';
-  import 'tinymce/plugins/image';
-  import 'tinymce/plugins/lists';
-  import 'tinymce/plugins/charmap';
-  import 'tinymce/plugins/hr';
-  import 'tinymce/plugins/anchor';
-  import 'tinymce/plugins/spellchecker';
-  import 'tinymce/plugins/searchreplace';
-  import 'tinymce/plugins/wordcount';
-  import 'tinymce/plugins/code';
-  import 'tinymce/plugins/fullscreen';
-  import 'tinymce/plugins/insertdatetime';
-  import 'tinymce/plugins/media';
-  import 'tinymce/plugins/nonbreaking';
-  import 'tinymce/plugins/table';
-  import 'tinymce/plugins/template';
-  import 'tinymce/plugins/help';
 
 const vacantPositionsState = VACANT_PLACES.reduce((acc, item) => {
   return {...acc, [item]: false};
@@ -46,6 +13,7 @@ const boxStyles = {
   alignItems: 'center',
   '& > :not(style)': { m: 1 }
 };
+
 
 function CreateProject() {
 
@@ -91,7 +59,7 @@ function CreateProject() {
     const reqBody = {
       // owner_id: 'c9de5e88-294a-11ec-9621-0242ac130002',
       name: nameInput.current.value,
-      about_project: aboutProjectInput.current.getContent(),
+      about_project: aboutProjectInput.current.value,
       stack: stackInput.current.value,
       email: emailInput.current.value,
       phone: phoneInput.current.value,
@@ -168,24 +136,15 @@ function CreateProject() {
         />
       </div>
       <div>
-          <label htmlFor="about_project" className={styles.label} >About your project</label>
-          <Editor
-              className={styles.textarea}
-              name="about_project"
-              id="about_project"
-              required
-              onInit={(evt, editor) => aboutProjectInput.current = editor}
-              initialValue="<p>Write here the main Idea of your project, the problem it solves, the Target audience, Deadlines, Main Features, About your Team, who is already on the board, Who are you looking for to realize your Idea and other interesting things about your project.</p>"
-              apiKey='hqjui8xfno72p6brq6uoox2idxw4icq8ae3sl1lmvrqp53vp'
-              init={{
-                  selector: "textarea",
-                  branding: false,
-                  plugins: 'link lists media code',
-                  toolbar: 'alignleft aligncenter alignright alignjustify | formatselect | bullist numlist | outdent indent | link code',
-                  toolbar_mode: 'floating',
-                  skin: "outside",
-              }}
-            />
+        <label htmlFor="about_project" className={styles.label} >About your project</label>
+        <TextField multiline rows={6}
+          className={styles.textarea}
+          inputRef={aboutProjectInput}
+          placeholder="Write here the main Idea of your project, the problem it solves, the Target audience, Deadlines, Main Features, About your Team, who is already on the board, Who are you looking for to realize your Idea and other interesting things about your project."
+          ame="about_project"
+          id="about_project"
+          required
+        />
       </div>
       <div>
         <label htmlFor="stack" className={styles.label}>Stack</label>
